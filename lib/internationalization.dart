@@ -1,10 +1,14 @@
 abstract class Internationalization {
 
+
 	String getAppName();
 	String getToday();
 	String getTomorrow();
 	String getDay(int number);
 	String getMonth(int number);
+
+	String getAddSymptoms();
+	String getAddEvents();
 }
 
 class LanguageFr extends Internationalization {
@@ -15,6 +19,10 @@ class LanguageFr extends Internationalization {
 	String getToday() { return "Aujourd'hui"; }
 
 	String getTomorrow() { return "Demain"; }
+
+	String getAddSymptoms () { return 'Ajouter Symptomes'; }
+
+	String getAddEvents () { return 'Ajouter Evenement'; }
 
 	@override
 	String getDay(int number) {
@@ -75,6 +83,10 @@ class LanguageEn extends Internationalization {
 	String getToday() { return "Today"; }
 
 	String getTomorrow() { return "Tomorrow"; }
+
+	String getAddSymptoms () { return 'Add Symptoms'; }
+
+	String getAddEvents () { return 'Add Events'; }
 
 	@override
 	String getDay(int number) {

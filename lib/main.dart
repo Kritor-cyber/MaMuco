@@ -34,10 +34,10 @@ class MaMucoHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-            title: Text(language.getAppName()),
-        ),
-        body: mainPage(),
+      appBar: AppBar(
+        title: Text(language.getAppName()),
+      ),
+      body: mainPage(),
     );
   }
 }
