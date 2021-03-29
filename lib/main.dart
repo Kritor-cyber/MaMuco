@@ -22,22 +22,6 @@ void main() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: MaMucoHomePage(),
+    home: mainPage(),
   ));
-}
-
-class MaMucoHomePage extends StatelessWidget {
-
-  MaMucoHomePage({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-        appBar: AppBar(
-            title: Text(language.getAppName()),
-        ),
-        body: mainPage(),
-    );
-  }
 }
