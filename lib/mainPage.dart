@@ -41,28 +41,76 @@ class mainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-        children: [
-          Column(
-              children: [
-                info.getWidget(),
-                info2.getWidget(),
-              ]
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(language.getAppName()),
+        ),
+        body: Column(
+          children: [
+              Column(
+                children: [
+                  info.getWidget(),
+                  info2.getWidget(),
+                ]
+              ),
+              getAddingBar(),
+              getFastAccessBar(),
+            ],
           ),
-          getAddingBarEvents(context),
-          getAddingBarSymptoms(context),
-          getAddingBar(),
-        ]
-    );
+        );
   }
 
   Widget getAddingBar() {
     return Container (
       color: Colors.blue,
-      child: Text("Bar d'ajout rapide"),
+      child: Row(
+        children: [
+
+        ],
+      ),
     );
   }
 
+  Widget getFastAccessBar() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          getAccessButton('assets/calendar-event-fill.png', 'CALENDRIER'),
+          getAccessButton('assets/calendar-x-fill.png', 'SYMPTOMES'),
+          getAccessButton('assets/calendar2-check-fill.png', 'MEDICAMENTS'),
+        ],
+      ),
+    );
+  }
+
+  Widget getAccessButton(String iconName, String text) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 35, right: 35, bottom: 10),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue,
+              ),
+              child: Container(
+                //margin: EdgeInsets.only(left: 40, right: 40),
+                padding: EdgeInsets.all(10),
+                child: Image(
+                  image: AssetImage(iconName),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            Text(text),
+          ]
+        ),
+      )
+    );
+  }
+  
   Widget getAddingBarSymptoms (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
@@ -90,5 +138,4 @@ class mainPage extends StatelessWidget {
       child: Text(language.getAddEvents()),
     );
   }
-
 }
