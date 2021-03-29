@@ -1,41 +1,43 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'CalendarEvent.dart';
 import 'internationalization.dart';
 
+import 'mainPage.dart';
+import 'utilities.dart';
+
 void main() {
+
+  //debugPaintSizeEnabled = true;
   /* English is the default language but is set to system language if it exists*/
-  Internationalization language = LanguageEn();
+  language = LanguageEn();
 
   if (Platform.localeName == "fr_FR")
     language = LanguageFr();
+
+  CalendarEvent.setLanguage(language);
 
   runApp(MaterialApp(
     title: language.getAppName(),
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: MaMucoHomePage(language: language),
+    home: MaMucoHomePage(),
   ));
 }
 
 class MaMucoHomePage extends StatelessWidget {
 
-  Internationalization language;
-
-  MaMucoHomePage({Key key, @required this.language}) : super(key: key);
+  MaMucoHomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(language.getAppName()),
-      ),
-      body: Center(
-        child: Text(
-          'Here we will put graphical things.',
+        appBar: AppBar(
+            title: Text(language.getAppName()),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        body: mainPage(),
     );
   }
 }
