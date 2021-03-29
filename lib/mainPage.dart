@@ -1,8 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:ma_muco/utilities.dart';
 
 import 'CalendarEvent.dart';
 import 'WelcomePageClasses/MainInformation.dart';
+import 'AddSymptoms.dart';
+import 'AddEvents.dart';
 
 class mainPage extends StatelessWidget {
 
@@ -55,19 +58,6 @@ class mainPage extends StatelessWidget {
             ],
           ),
         );
-
-    /*return Column(
-        children: [
-            Column(
-                children: [
-                  info.getWidget(),
-                  info2.getWidget(),
-                ]
-            ),
-            getAddingBar(),
-          Positioned(child: getFastAccessBar(), bottom: 0,),
-        ]
-    );*/
   }
 
   Widget getAddingBar() {
@@ -118,6 +108,34 @@ class mainPage extends StatelessWidget {
           ]
         ),
       )
+    );
+  }
+  
+  Widget getAddingBarSymptoms (BuildContext context) {
+    return ElevatedButton (
+      onPressed:() {
+        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms()
+        ),
+        );
+      },
+      style : ButtonStyle (
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+      ),
+      child: Text (language.getAddSymptoms()),
+    );
+  }
+
+  Widget getAddingBarEvents (BuildContext context) {
+    return ElevatedButton (
+      onPressed:() {
+        Navigator.push( context, MaterialPageRoute(builder: (context) => AddEvents()
+        ),
+        );
+      },
+      style : ButtonStyle (
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+      ),
+      child: Text(language.getAddEvents()),
     );
   }
 }
