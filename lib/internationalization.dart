@@ -7,23 +7,27 @@ abstract class Internationalization {
 	String getDay(int number);
 	String getMonth(int number);
 
+	// Fast adding buttons
 	String getAddSymptoms();
 	String getAddEvents();
+
+	// Fast access buttons
+	String getCalendarButtonName();
+	String getSymptomButtonName();
+	String getDrugsButtonName();
+	String getCalendarButtonToolTip();
+	String getSymptomButtonToolTip();
+	String getDrugsButtonToolTip();
 }
 
 class LanguageFr extends Internationalization {
 
 	@override
 	String getAppName() { return "MA MUCO"; }
-
+	@override
 	String getToday() { return "Aujourd'hui"; }
-
+	@override
 	String getTomorrow() { return "Demain"; }
-
-	String getAddSymptoms () { return 'Ajouter Symptomes'; }
-
-	String getAddEvents () { return 'Ajouter Evenement'; }
-
 	@override
 	String getDay(int number) {
 		if (number == 0)
@@ -43,7 +47,6 @@ class LanguageFr extends Internationalization {
 		else
 			return "Numéro de jour invalide : " + number.toString();
 	}
-
 	@override
 	String getMonth(int number) {
 		if (number == 0)
@@ -73,21 +76,35 @@ class LanguageFr extends Internationalization {
 		else
 			return "Numéro de mois invalide : " + number.toString();
 	}
+
+	// Fast adding buttons
+	String getAddSymptoms () { return 'Ajouter Symptomes'; }
+	String getAddEvents () { return 'Ajouter Evenement'; }
+
+
+	// Fast access buttons
+	@override
+	String getCalendarButtonName() { return "CALENDRIER"; }
+	@override
+	String getSymptomButtonName() { return "SYMPTÔMES"; }
+	@override
+	String getDrugsButtonName() { return "MÉDICAMENTS"; }
+	@override
+	String getCalendarButtonToolTip() { return "Accès rapide au calendrier des rendez-vous"; }
+	@override
+	String getSymptomButtonToolTip() { return "Accès rapide au calendrier des symptômes"; }
+	@override
+	String getDrugsButtonToolTip() { return "Accès rapide au calendrier des médicaments"; }
 }
 
 class LanguageEn extends Internationalization {
 
 	@override
 	String getAppName() { return "MY MUCO"; }
-
+	@override
 	String getToday() { return "Today"; }
-
+	@override
 	String getTomorrow() { return "Tomorrow"; }
-
-	String getAddSymptoms () { return 'Add Symptoms'; }
-
-	String getAddEvents () { return 'Add Events'; }
-
 	@override
 	String getDay(int number) {
 		if (number == 0)
@@ -107,7 +124,6 @@ class LanguageEn extends Internationalization {
 		else
 			return "Invalid number day: " + number.toString();
 	}
-
 	@override
 	String getMonth(int number) {
 		if (number == 0)
@@ -137,4 +153,24 @@ class LanguageEn extends Internationalization {
 		else
 			return "Invalid month number: " + number.toString();
 	}
+
+	// Fast adding buttons
+	@override
+	String getAddSymptoms () { return 'Add Symptoms'; }
+	@override
+	String getAddEvents () { return 'Add Events'; }
+
+	// Fast access buttons
+	@override
+	String getCalendarButtonName() { return "CALENDAR"; }
+	@override
+	String getSymptomButtonName() { return "SYMPTOMS"; }
+	@override
+	String getDrugsButtonName() { return "DRUGS"; }
+	@override
+	String getCalendarButtonToolTip() { return "Fast access to appointments' calendar"; }
+	@override
+	String getSymptomButtonToolTip() { return "Fast access to symptoms' calendar"; }
+	@override
+	String getDrugsButtonToolTip() { return "Fast access to drugs' calendar"; }
 }

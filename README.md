@@ -1,4 +1,4 @@
-# ma_muco
+# Ma Muco
 
 Application pour aider les malades de la mucoviscidose.
 

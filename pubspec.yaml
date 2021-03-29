@@ -59,6 +59,11 @@ flutter:
     - assets/calendar-event-fill.png
     - assets/calendar-x-fill.png
     - assets/calendar2-check-fill.png
+
+  fonts:
+    - family: fontIcons
+      fonts:
+        - asset: assets/customIcons.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

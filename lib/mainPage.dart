@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
 import 'CalendarEvent.dart';
@@ -17,8 +18,8 @@ class mainPage extends StatelessWidget {
   /** END */
 
   mainPage() {
-    /** Events used to test the draw */
 
+    /** Events used to test the draw */
     list = <CalendarEvent>[];
     list.add(CalendarEvent());
     list.last.setTitle("Prendre médicament");
@@ -34,7 +35,6 @@ class mainPage extends StatelessWidget {
 
     info.setEvents(list);
     info2.setEvents(list);
-
     /** END */
   }
 
@@ -75,33 +75,36 @@ class mainPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          getAccessButton('assets/calendar-event-fill.png', 'CALENDRIER'),
-          getAccessButton('assets/calendar-x-fill.png', 'SYMPTOMES'),
-          getAccessButton('assets/calendar2-check-fill.png', 'MEDICAMENTS'),
+          getAccessButton(customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip()),
+          getAccessButton(customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip()),
+          getAccessButton(customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip()),
         ],
       ),
     );
   }
 
-  Widget getAccessButton(String iconName, String text) {
+  Widget getAccessButton(IconData icon, String text, String tooltip) {
     return Expanded(
       child: Container(
+        margin: EdgeInsets.only(bottom: 4),
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 35, right: 35, bottom: 10),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blue,
-              ),
-              child: Container(
-                //margin: EdgeInsets.only(left: 40, right: 40),
-                padding: EdgeInsets.all(13),
-                child: Image(
-                  image: AssetImage(iconName),
-                  fit: BoxFit.contain,
-                ),
-              ),
+            IconButton(
+              icon: Icon(icon),
+              // A lot of colors to test
+              color: Colors.red,
+              disabledColor: Colors.blueGrey,
+              focusColor: Colors.orange,
+              highlightColor: Colors.pink,
+              hoverColor: Colors.blue,
+              splashColor: Colors.green,
+              tooltip: tooltip,
+              iconSize: 45,
+              splashRadius: 40,
+
+              onPressed: () {
+                print(text);
+              },
             ),
             Text(text),
           ]
@@ -127,9 +130,7 @@ class mainPage extends StatelessWidget {
   Widget getAddingBarEvents (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push( context, MaterialPageRoute(builder: (context) => AddEvents()
-        ),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents()));
       },
       style : ButtonStyle (
         backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
