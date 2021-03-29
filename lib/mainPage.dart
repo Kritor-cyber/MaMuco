@@ -45,7 +45,10 @@ class mainPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(language.getAppName()),
         ),
-        body: Column(
+        body: Container(
+          margin: EdgeInsets.only(top: 10),
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
               Column(
                 children: [
@@ -53,22 +56,18 @@ class mainPage extends StatelessWidget {
                   info2.getWidget(),
                 ]
               ),
-              getAddingBar(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  getAddingBarEvents(context),
+                  getAddingBarSymptoms(context),
+                ],
+              ),
               getFastAccessBar(),
             ],
           ),
+        ),
         );
-  }
-
-  Widget getAddingBar() {
-    return Container (
-      color: Colors.blue,
-      child: Row(
-        children: [
-
-        ],
-      ),
-    );
   }
 
   Widget getFastAccessBar() {
@@ -97,7 +96,7 @@ class mainPage extends StatelessWidget {
               ),
               child: Container(
                 //margin: EdgeInsets.only(left: 40, right: 40),
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(13),
                 child: Image(
                   image: AssetImage(iconName),
                   fit: BoxFit.contain,
