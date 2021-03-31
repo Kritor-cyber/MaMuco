@@ -1,16 +1,12 @@
-import 'internationalization.dart';
 import 'utilities.dart';
 
 class CalendarEvent {
-  static Internationalization language;
 
   DateTime startTime = null, endTime = null;
   String title;
   String infos;
   DateTime occurrence;  //Describe the time elapsed between two repetition of the event (if it's value equals 0 seconds, there is no repetition)
   int numberRepetition; //Contain the number of times the event is repeat (useless value if no repetition, infinite repetition if it's value equals zero)
-
-  static void setLanguage(Internationalization lang) { language = lang; }
 
   DateTime getStartTime() { return startTime; }
   DateTime getEndTime() { return endTime; }
@@ -69,4 +65,15 @@ class CalendarEvent {
   String getStartTimeString() { return dateToString(startTime); }
 
   String getEndTimeString() { return dateToString(endTime); }
+
+  CalendarEvent copy() {
+    CalendarEvent copy = CalendarEvent();
+    copy.setTimes(startTime, endTime);
+    copy.setTitle(title);
+    copy.setInfos(infos);
+    copy.setOccurrence(occurrence);
+    copy.setRepetition(numberRepetition);
+
+    return copy;
+  }
 }

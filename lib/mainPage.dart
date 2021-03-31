@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:ma_muco/Calendars/CalendarWidget.dart';
+import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
+import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
@@ -14,6 +17,9 @@ class mainPage extends StatelessWidget {
 
   MainInformation info = MainInformation();
   MainInformation info2 = MainInformation();
+  Calendar meetingsCalendar;
+  Calendar symptomsCalendar;
+  Calendar drugsCalendar;
 
   /** Events used to test the draw*/
   List<CalendarEvent> list;
@@ -37,62 +43,104 @@ class mainPage extends StatelessWidget {
 
     info.setEvents(list);
     info2.setEvents(list);
-    /** END */
 
     List<CalendarEvent> list2 = <CalendarEvent>[];
     list2.add(list.elementAt(1));
     list2.add(list.elementAt(0));
-    Calendar c = MeetingCalendar();
-    c.addEvents(list);
-    c.toString();
+    meetingsCalendar = MeetingsCalendar();
+    meetingsCalendar.addEvents(list);
+
+
+    list.clear();
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Symptome");
+    list.last.setStartTime(DateTime(2021, 03, 31, 10, 43));
+    list.last.setEndTime(DateTime(2021, 03, 31, 12, 43));
+    list.last.setInfos("Symptome 1");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test 2 Symptome");
+    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 01, 12, 43));
+    list.last.setInfos("Symptome 2");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test 3 Symptome");
+    list.last.setStartTime(DateTime(2021, 04, 03, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 03, 12, 43));
+    list.last.setInfos("Symptome 3");
+    symptomsCalendar = SymptomsCalendar();
+    symptomsCalendar.addEvents(list);
+
+
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 01, 12, 43));
+    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    drugsCalendar = DrugsCalendar();
+    drugsCalendar.addEvents(list);
+
+
+    list.clear();
+    list.add(CalendarEvent());
+    list.last.setTitle("Prendre médicament");
+    list.last.setStartTime(DateTime(2021, 03, 29, 10, 43));
+    list.last.setEndTime(DateTime(2021, 03, 30, 12, 43));
+    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+
+    list.add(CalendarEvent());
+    list.last.setTitle("RDV Médical");
+    list.last.setStartTime(DateTime(2021, 03, 31, 13, 00));
+    list.last.setEndTime(DateTime(2021, 03, 31, 17, 45));
+    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
+    /** END */
   }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(language.getAppName()),
+      appBar: AppBar(
+        title: Text(language.getAppName()),
+      ),
+      body: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+            Column(
+              children: [
+                info.getWidget(),
+                info2.getWidget(),
+              ]
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                getAddingBarEvents(context),
+                getAddingBarSymptoms(context),
+              ],
+            ),
+            getFastAccessBar(context),
+          ],
         ),
-        body: Container(
-          margin: EdgeInsets.only(top: 10),
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-              Column(
-                children: [
-                  info.getWidget(),
-                  info2.getWidget(),
-                ]
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  getAddingBarEvents(context),
-                  getAddingBarSymptoms(context),
-                ],
-              ),
-              getFastAccessBar(),
-            ],
-          ),
-        ),
-        );
+      ),
+    );
   }
 
-  Widget getFastAccessBar() {
+  Widget getFastAccessBar(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          getAccessButton(customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip()),
-          getAccessButton(customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip()),
-          getAccessButton(customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip()),
+          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), meetingsCalendar),
+          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), symptomsCalendar),
+          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), drugsCalendar),
         ],
       ),
     );
   }
 
-  Widget getAccessButton(IconData icon, String text, String tooltip) {
+  Widget getAccessButton(BuildContext context, IconData icon, String text, String tooltip, Calendar calendar) {
     return Expanded(
       child: Container(
         margin: EdgeInsets.only(bottom: 4),
@@ -112,7 +160,7 @@ class mainPage extends StatelessWidget {
               splashRadius: 40,
 
               onPressed: () {
-                print(text);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarWidget(calendar)));
               },
             ),
             Text(text),

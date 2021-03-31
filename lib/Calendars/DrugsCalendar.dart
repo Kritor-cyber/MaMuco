@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../utilities.dart';
 import 'Calendar.dart';
 
-class MeetingsCalendar extends Calendar {
+class DrugsCalendar extends Calendar {
   @override
   String getTitle() {
-    return language.getCalendarButtonName();
+    return language.getDrugsButtonName();
   }
 
   @override
   Color getColor(int index) {
-    return Colors.blue;
+    return Colors.green;
   }
 }

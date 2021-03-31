@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'CalendarEvent.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'internationalization.dart';
 
 import 'mainPage.dart';
@@ -15,9 +16,18 @@ void main() {
   if (Platform.localeName == "fr_FR")
     language = LanguageFr();
 
-  CalendarEvent.setLanguage(language);
 
   runApp(MaterialApp(
+    localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      SfGlobalLocalizations.delegate
+    ],
+    supportedLocales: [
+      const Locale('en'),
+      const Locale('fr'),
+    ],
+
     title: language.getAppName(),
     theme: ThemeData(
       primarySwatch: Colors.blue,

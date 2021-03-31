@@ -1,55 +1,83 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../CalendarEvent.dart';
 
-abstract class Calendar {
-  List<CalendarEvent> events;
+abstract class Calendar extends CalendarDataSource {
 
   Calendar() {
-    events = <CalendarEvent>[];
+    appointments = <CalendarEvent>[];
   }
 
-  List<CalendarEvent> getEvents() { return events; }
+  List<CalendarEvent> getEvents() { return appointments; }
 
-  CalendarEvent getEvent(int index) { return events.elementAt(index); }
+  CalendarEvent getEvent(int index) { return appointments.elementAt(index); }
 
   void addEvent(CalendarEvent event) {
-    if (events == null)
-      events = <CalendarEvent>[];
+    if (appointments == null)
+      appointments = <CalendarEvent>[];
 
-    events.add(event);
+    appointments.add(event.copy());
 
     sortEvents();
   }
 
   void addEvents(List<CalendarEvent> eventsToAdd) {
-    if (events == null)
-      events = <CalendarEvent>[];
+    if (appointments == null)
+      appointments = <CalendarEvent>[];
 
-    events.addAll(eventsToAdd);
+    appointments.addAll(eventsToAdd);
 
     sortEvents();
   }
 
   void removeEvent(CalendarEvent event) {
-    if (events != null)
-      events.remove(event);
+    if (appointments != null)
+      appointments.remove(event);
   }
 
   void removeEventAt(int id) {
-    if (events != null)
-      events.removeAt(id);
+    if (appointments != null)
+      appointments.removeAt(id);
   }
 
   void sortEvents() {
-    events.sort((event1, event2) { return event1.getStartTime().compareTo(event2.getStartTime()); });
+    appointments.sort((event1, event2) { return event1.getStartTime().compareTo(event2.getStartTime()); });
   }
+
+  String getTitle();
 
   String toString() {
-    for (CalendarEvent e in events) {
-      print(e.getStartTimeString());
+    String str = "";
+    for (CalendarEvent e in appointments) {
+      str += e.getStartTimeString() + " -> " + e.getEndTimeString() + "\n";
     }
+
+    return str;
   }
 
-  Widget getWidget();
+
+  @override
+  DateTime getStartTime(int index) {
+    return appointments[index].startTime;
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return appointments[index].endTime;
+  }
+
+  @override
+  String getSubject(int index) {
+    return appointments[index].title;
+  }
+
+  @override
+  Color getColor(int index);
+
+  @override
+  bool isAllDay(int index) {
+    return false;
+  }
 }
