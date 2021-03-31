@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
 import 'CalendarEvent.dart';
+import 'Calendars/Calendar.dart';
 import 'WelcomePageClasses/MainInformation.dart';
 import 'AddSymptoms.dart';
 import 'AddEvents.dart';
@@ -36,6 +38,13 @@ class mainPage extends StatelessWidget {
     info.setEvents(list);
     info2.setEvents(list);
     /** END */
+
+    List<CalendarEvent> list2 = <CalendarEvent>[];
+    list2.add(list.elementAt(1));
+    list2.add(list.elementAt(0));
+    Calendar c = MeetingCalendar();
+    c.addEvents(list);
+    c.toString();
   }
 
   @override
