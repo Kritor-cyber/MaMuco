@@ -46,6 +46,24 @@ abstract class Calendar extends CalendarDataSource {
     appointments.sort((event1, event2) { return event1.getStartTime().compareTo(event2.getStartTime()); });
   }
 
+  ///return -1 if there is no event before this date
+  int getFirstEventIdFrom(DateTime date) {
+    int id = 0;
+
+    for (CalendarEvent event in appointments) {
+      if (date.year == event.getStartTime().year) {
+        if (date.month == event.getStartTime().month) {
+          if (date.day <= event.getStartTime().day)
+            return id;
+        }
+      }
+
+      id++;
+    }
+
+    return -1;
+  }
+
   String getTitle();
 
   String toString() {

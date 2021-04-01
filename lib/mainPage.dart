@@ -37,8 +37,8 @@ class mainPage extends StatelessWidget {
 
     list.add(CalendarEvent());
     list.last.setTitle("RDV Médical");
-    list.last.setStartTime(DateTime(2021, 03, 31, 13, 00));
-    list.last.setEndTime(DateTime(2021, 03, 31, 17, 45));
+    list.last.setStartTime(DateTime(2021, 04, 01, 13, 00));
+    list.last.setEndTime(DateTime(2021, 04, 01, 17, 45));
     list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
 
     info.setEvents(list);

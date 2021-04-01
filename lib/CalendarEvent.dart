@@ -15,9 +15,7 @@ class CalendarEvent {
   DateTime getOccurrence() { return occurrence; }
   int getRepetition() { return numberRepetition; }
 
-  /**
-   * return FALSE if the new start time isn't before the actual end time
-   */
+  /// return FALSE if the new start time isn't before the actual end time
   bool setStartTime(DateTime time) {
     if (endTime == null)
       startTime = time;
@@ -29,9 +27,7 @@ class CalendarEvent {
     return true;
   }
 
-  /**
-   * return FALSE if the new end time isn't after the actual start time
-   */
+  ///return FALSE if the new end time isn't after the actual start time
   bool setEndTime(DateTime time) {
     if (startTime == null)
       endTime = time;
@@ -43,9 +39,7 @@ class CalendarEvent {
     return true;
   }
 
-  /**
-   * return FALSE if the new end time isn't after the new start time
-   */
+  ///return FALSE if the new end time isn't after the new start time
   bool setTimes(DateTime start, DateTime end) {
     if (start.isBefore(end)) {
       startTime = start;
