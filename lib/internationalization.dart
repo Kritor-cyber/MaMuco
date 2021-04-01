@@ -6,6 +6,7 @@ abstract class Internationalization {
 	String getTomorrow();
 	String getDay(int number);
 	String getMonth(int number);
+	String getMonthly();
 
 	// Fast adding buttons
 	String getAddSymptoms();
@@ -30,52 +31,53 @@ class LanguageFr extends Internationalization {
 	String getTomorrow() { return "Demain"; }
 	@override
 	String getDay(int number) {
-		if (number == 0)
-			return "Lundi";
 		if (number == 1)
-			return "Mardi";
+			return "Lundi";
 		if (number == 2)
-			return "Mercredi";
+			return "Mardi";
 		if (number == 3)
-			return "Jeudi";
+			return "Mercredi";
 		if (number == 4)
-			return "Vendredi";
+			return "Jeudi";
 		if (number == 5)
-			return "Samedi";
+			return "Vendredi";
 		if (number == 6)
+			return "Samedi";
+		if (number == 7)
 			return "Dimanche";
 		else
 			return "Numéro de jour invalide : " + number.toString();
 	}
 	@override
 	String getMonth(int number) {
-		if (number == 0)
-			return "Janvier";
 		if (number == 1)
-			return "Février";
+			return "Janvier";
 		if (number == 2)
-			return "Mars";
+			return "Février";
 		if (number == 3)
-			return "Avril";
+			return "Mars";
 		if (number == 4)
-			return "Mai";
+			return "Avril";
 		if (number == 5)
-			return "Juin";
+			return "Mai";
 		if (number == 6)
-			return "Juillet";
+			return "Juin";
 		if (number == 7)
-			return "Août";
+			return "Juillet";
 		if (number == 8)
-			return "Septembre";
+			return "Août";
 		if (number == 9)
-			return "Octobre";
+			return "Septembre";
 		if (number == 10)
-			return "Novembre";
+			return "Octobre";
 		if (number == 11)
+			return "Novembre";
+		if (number == 12)
 			return "Décembre";
 		else
 			return "Numéro de mois invalide : " + number.toString();
 	}
+	String getMonthly() { return "MENSUEL"; }
 
 	// Fast adding buttons
 	String getAddSymptoms () { return 'Ajouter Symptomes'; }
@@ -107,52 +109,53 @@ class LanguageEn extends Internationalization {
 	String getTomorrow() { return "Tomorrow"; }
 	@override
 	String getDay(int number) {
-		if (number == 0)
-			return "Monday";
 		if (number == 1)
-			return "Tuesday";
+			return "Monday";
 		if (number == 2)
-			return "Wednesday";
+			return "Tuesday";
 		if (number == 3)
-			return "Thursday";
+			return "Wednesday";
 		if (number == 4)
-			return "Friday";
+			return "Thursday";
 		if (number == 5)
-			return "Saturday";
+			return "Friday";
 		if (number == 6)
+			return "Saturday";
+		if (number == 7)
 			return "Sunday";
 		else
 			return "Invalid number day: " + number.toString();
 	}
 	@override
 	String getMonth(int number) {
-		if (number == 0)
-			return "January";
 		if (number == 1)
-			return "February";
+			return "January";
 		if (number == 2)
-			return "Mars";
+			return "February";
 		if (number == 3)
-			return "April";
+			return "Mars";
 		if (number == 4)
-			return "May";
+			return "April";
 		if (number == 5)
-			return "June";
+			return "May";
 		if (number == 6)
-			return "July";
+			return "June";
 		if (number == 7)
-			return "August";
+			return "July";
 		if (number == 8)
-			return "September";
+			return "August";
 		if (number == 9)
-			return "October";
+			return "September";
 		if (number == 10)
-			return "November";
+			return "October";
 		if (number == 11)
+			return "November";
+		if (number == 12)
 			return "December";
 		else
 			return "Invalid month number: " + number.toString();
 	}
+	String getMonthly() { return "MONTHLY"; }
 
 	// Fast adding buttons
 	@override
