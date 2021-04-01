@@ -11,9 +11,9 @@ String twoDigitInt(int number) {
 
 String dateToString(DateTime time) {
     String string = "";
-    if (time.difference(DateTime.now()).inHours < 24)
+    if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day)
         string += language.getToday();
-    else if (time.difference(DateTime.now()).inHours < 48)
+    else if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day+1)
         string += language.getTomorrow();
     else
         string += twoDigitInt(time.day) + "-" + twoDigitInt(time.month) + "-" + twoDigitInt(time.year);
