@@ -19,6 +19,13 @@ abstract class Internationalization {
 	String getCalendarButtonToolTip();
 	String getSymptomButtonToolTip();
 	String getDrugsButtonToolTip();
+
+	//Add Events
+	String getNameEvent();
+	String getDate();
+	String getHour();
+	String getDetails();
+	String getValidate();
 }
 
 class LanguageFr extends Internationalization {
@@ -97,6 +104,18 @@ class LanguageFr extends Internationalization {
 	String getSymptomButtonToolTip() { return "Accès rapide au calendrier des symptômes"; }
 	@override
 	String getDrugsButtonToolTip() { return "Accès rapide au calendrier des médicaments"; }
+
+	//Add Events
+	@override
+	String getNameEvent() {return "Evenement";}
+	@override
+	String getDate(){ return 'Date';}
+	@override
+	String getHour() { return 'Heure';}
+	@override
+	String getDetails() {return 'Details'; }
+	@override
+	String getValidate() {return 'Validation';}
 }
 
 class LanguageEn extends Internationalization {
@@ -176,4 +195,16 @@ class LanguageEn extends Internationalization {
 	String getSymptomButtonToolTip() { return "Fast access to symptoms' calendar"; }
 	@override
 	String getDrugsButtonToolTip() { return "Fast access to drugs' calendar"; }
+
+	//Add Events
+	@override
+	String getNameEvent() {return "Event";}
+	@override
+	String getDate(){ return 'Date';}
+	@override
+	String getHour() { return 'Hour';}
+	@override
+	String getDetails() {return 'Details'; }
+	@override
+	String getValidate() {return 'Validation';}
 }
