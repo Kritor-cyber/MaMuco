@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ma_muco/utilities.dart';
 
 import 'Calendar.dart';
@@ -7,13 +8,17 @@ import 'Calendar.dart';
 class CalendarWidget extends StatefulWidget {
 
   final Calendar calendar;
-  DateTime dateToShow = DateTime.now();
+  DateTime dateToShow = subtractOneMonth(DateTime.now());
 
   CalendarWidget(this.calendar);
   _CalendarWidget createState() => _CalendarWidget();
 }
 
 class _CalendarWidget extends State<CalendarWidget> {
+
+  int prevId = 0;
+  double position = 0;
+  Duration duration = Duration(milliseconds: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -24,37 +29,40 @@ class _CalendarWidget extends State<CalendarWidget> {
       ),
       body: Scaffold(
         body: GestureDetector(
-          child: Container(
-            child: getMonthlyWidget(),
+          child: ListView.builder(
+            itemBuilder: getMonthlyWidgetTest,
           ),
-          onVerticalDragEnd: (details) {
-
-            if (details.velocity.pixelsPerSecond.direction > 0)
-              widget.dateToShow = subtractOneMonth(widget.dateToShow);
-            else if (details.velocity.pixelsPerSecond.direction < 0)
-              widget.dateToShow = addOneMonth(widget.dateToShow);
-
-            print(widget.dateToShow.toString());
-
-            setState(() {
-
-            });
-          },
         ),
       ),
     );
   }
 
-  Widget getMonthlyWidget() {
-    return Column(
-      children: [
-        getMonthlyTitle(widget.dateToShow.year, widget.dateToShow.month),
-        getDayList(),
-        getAllMonthDays(widget.dateToShow.year, widget.dateToShow.month),
-        Container(
-          height: 150,
-        ),
-      ],
+
+  Widget getMonthlyWidgetTest(BuildContext context, int id) {
+    while (id != prevId) {
+      if (id > prevId) {
+        widget.dateToShow = addOneMonth(widget.dateToShow);
+        prevId++;
+      }
+      else if (id < prevId) {
+        widget.dateToShow = subtractOneMonth(widget.dateToShow);
+        prevId--;
+      }
+    }
+
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          getMonthlyTitle(widget.dateToShow.year, widget.dateToShow.month),
+          getDayList(),
+          getAllMonthDays(widget.dateToShow.year, widget.dateToShow.month),
+          Container(
+            height: 150,
+          ),
+        ],
+      ),
     );
   }
 
@@ -97,7 +105,7 @@ class _CalendarWidget extends State<CalendarWidget> {
 
   Widget getAllMonthDays(int year, int month) {
     return Expanded(
-        child: Column(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
         children: getAllWeekDays(year, month),
       ),
@@ -122,7 +130,7 @@ class _CalendarWidget extends State<CalendarWidget> {
 
     while (date.month == continueMonth || date.month == previousMonth) {
       List<Widget> week = [];
-      
+
       for (int i = 0; i < 7; i++) {
         week.add(getDayFromDateTime(date));
         date = date.add(Duration(days: 1));
@@ -135,30 +143,30 @@ class _CalendarWidget extends State<CalendarWidget> {
 
   Widget getDayFromDateTime(DateTime date) {
     return Expanded(
-        flex: 1,
-        child: Container(
-          //height: double.infinity,
-          //color: Colors.orange,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: Border.all(
-              width: 1,
-              color: Colors.black,
-            ),
-            color: date.year == DateTime.now().year && date.month == DateTime.now().month && date.day == DateTime.now().day ? Colors.lightBlue : Colors.white,
+      flex: 1,
+      child: Container(
+        //height: double.infinity,
+        //color: Colors.orange,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: Border.all(
+            width: 1,
+            color: Colors.black,
           ),
-          child: Column(
-            children: [
-              Text(
-                date.day.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: date.month != widget.dateToShow.month ? Colors.grey : Colors.black,
-                ),
-              ),
-            ],
-          ),
+          color: date.year == DateTime.now().year && date.month == DateTime.now().month && date.day == DateTime.now().day ? Colors.lightBlue : Colors.white,
         ),
+        child: Column(
+          children: [
+            Text(
+              date.day.toString(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: date.month != widget.dateToShow.month ? Colors.grey : Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
