@@ -8,7 +8,12 @@ import 'Calendar.dart';
 class CalendarWidget extends StatefulWidget {
 
   final Calendar calendar;
-  DateTime dateToShow = subtractOneMonth(DateTime.now());
+  DateTime dateToShow = DateTime.now();
+
+  PageController _calendarViewer;
+  Widget prevMonth, actualMonth, nextMonth;
+
+  double initialOffset = -1;
 
   CalendarWidget(this.calendar);
   _CalendarWidget createState() => _CalendarWidget();
@@ -20,8 +25,46 @@ class _CalendarWidget extends State<CalendarWidget> {
   double position = 0;
   Duration duration = Duration(milliseconds: 1);
 
+  void createMonths() {
+
+    if (widget.actualMonth == null) {
+
+      widget.prevMonth = getMonthlyWidget(subtractOneMonth(widget.dateToShow));
+      widget.actualMonth = getMonthlyWidget(widget.dateToShow);
+      widget.nextMonth = getMonthlyWidget(addOneMonth(widget.dateToShow));
+      widget._calendarViewer = PageController(initialPage: 1);
+      widget._calendarViewer.addListener(() {
+        if (widget.initialOffset == -1)
+          widget.initialOffset = widget._calendarViewer.offset;
+
+        if (widget.initialOffset - widget._calendarViewer.offset > 0.75 * widget.initialOffset) {
+          widget._calendarViewer.jumpTo(widget.initialOffset+widget._calendarViewer.offset);
+          widget.dateToShow = subtractOneMonth(widget.dateToShow);
+
+          widget.nextMonth = widget.actualMonth;
+          widget.actualMonth = widget.prevMonth;
+          widget.prevMonth = getMonthlyWidget(subtractOneMonth(widget.dateToShow));
+
+          setState(() {});
+        }
+        else if (widget._calendarViewer.offset - widget.initialOffset > 0.75 * widget.initialOffset) {
+          widget._calendarViewer.jumpTo(widget._calendarViewer.offset-widget.initialOffset);
+          widget.dateToShow = addOneMonth(widget.dateToShow);
+
+          widget.prevMonth = widget.actualMonth;
+          widget.actualMonth = widget.nextMonth;
+          widget.nextMonth = getMonthlyWidget(addOneMonth(widget.dateToShow));
+
+          setState(() {});
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    createMonths();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,35 +72,29 @@ class _CalendarWidget extends State<CalendarWidget> {
       ),
       body: Scaffold(
         body: GestureDetector(
-          child: ListView.builder(
-            itemBuilder: getMonthlyWidgetTest,
+          child: PageView(
+            controller: widget._calendarViewer,
+            scrollDirection: Axis.vertical,
+            children: [
+              widget.prevMonth,
+              widget.actualMonth,
+              widget.nextMonth,
+            ],
           ),
         ),
       ),
     );
   }
 
-
-  Widget getMonthlyWidgetTest(BuildContext context, int id) {
-    while (id != prevId) {
-      if (id > prevId) {
-        widget.dateToShow = addOneMonth(widget.dateToShow);
-        prevId++;
-      }
-      else if (id < prevId) {
-        widget.dateToShow = subtractOneMonth(widget.dateToShow);
-        prevId--;
-      }
-    }
-
+  Widget getMonthlyWidget(DateTime time) {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          getMonthlyTitle(widget.dateToShow.year, widget.dateToShow.month),
+          getMonthlyTitle(time.year, time.month),
           getDayList(),
-          getAllMonthDays(widget.dateToShow.year, widget.dateToShow.month),
+          getAllMonthDays(time.year, time.month),
           Container(
             height: 150,
           ),
@@ -132,7 +169,7 @@ class _CalendarWidget extends State<CalendarWidget> {
       List<Widget> week = [];
 
       for (int i = 0; i < 7; i++) {
-        week.add(getDayFromDateTime(date));
+        week.add(getDayFromDateTime(date, continueMonth));
         date = date.add(Duration(days: 1));
       }
       weeks.add(Expanded(flex: 1, child: Row(children: week)));
@@ -141,7 +178,7 @@ class _CalendarWidget extends State<CalendarWidget> {
     return weeks;
   }
 
-  Widget getDayFromDateTime(DateTime date) {
+  Widget getDayFromDateTime(DateTime date, int mainMonth) {
     return Expanded(
       flex: 1,
       child: Container(
@@ -161,7 +198,7 @@ class _CalendarWidget extends State<CalendarWidget> {
               date.day.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: date.month != widget.dateToShow.month ? Colors.grey : Colors.black,
+                color: date.month != mainMonth ? Colors.grey : Colors.black,
               ),
             ),
           ],
