@@ -38,7 +38,7 @@ class _AddSymptoms extends State<AddSymptoms> {
                           title: Text("Symptome enregistrer 1"),
                           tileColor: Colors.red,
                           subtitle: Text("sous-titre"),
-                          leading: Text("ICONE"),
+                          leading: new Image.asset("assets/medic.png"),
                           onTap: () {
                             setState(() {
                               print("Symptome 1 selected");
@@ -50,7 +50,7 @@ class _AddSymptoms extends State<AddSymptoms> {
                           title: Text("Symptome enregistrer 2"),
                           tileColor: Colors.blue,
                           subtitle: Text("sous-titre"),
-                          leading: Text("ICONE"),
+                          leading: new Image.asset("assets/lung.png"),
                           onTap: () {
                             setState(() {
                               print("Symptome 2 selected");
@@ -62,7 +62,7 @@ class _AddSymptoms extends State<AddSymptoms> {
                           title: Text("Symptome enregistrer 3"),
                           tileColor: Colors.green,
                           subtitle: Text("sous-titre"),
-                          leading: Text("ICONE"),
+                          leading:  new Image.asset("assets/sick_boy.png"),
                           onTap: () {
                             setState(() {
                               print("Symptome 3 selected");
@@ -74,7 +74,7 @@ class _AddSymptoms extends State<AddSymptoms> {
                           title: Text("Ajouter un nouveau symptome à la liste"),
                           tileColor: Colors.yellow,
                           subtitle: Text("sous-titre"),
-                          leading: Text("ICONE"),
+                          leading:  new Image.asset("assets/heart.png"),
                           onTap: () {
                             setState(() {
                               print("Add symptom");
@@ -126,7 +126,7 @@ class _AddSymptoms extends State<AddSymptoms> {
             widget.selectingSymptom ? widget.symptomSelection : Container(),
           ],
         ),
-      ),
+      )
     );
   }
 }
