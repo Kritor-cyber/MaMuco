@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -12,7 +13,10 @@ abstract class Calendar extends CalendarDataSource {
 
   List<CalendarEvent> getEvents() { return appointments; }
 
-  CalendarEvent getEvent(int index) { return appointments.elementAt(index); }
+  /// if the index send is too high, getEvent return null value
+  CalendarEvent getEvent(int index) { return isIndexInRange(index) ? appointments.elementAt(index) : null; }
+
+  bool isIndexInRange(int index) { return index < appointments.asMap().length && index >= 0; }
 
   void addEvent(CalendarEvent event) {
     if (appointments == null)
@@ -47,20 +51,20 @@ abstract class Calendar extends CalendarDataSource {
   }
 
   ///return -1 if there is no event before this date
+  /// we compare to the end of the end if he is during many days
   int getFirstEventIdFrom(DateTime date) {
     int id = 0;
 
     for (CalendarEvent event in appointments) {
-      if (date.year == event.getStartTime().year) {
-        if (date.month == event.getStartTime().month) {
-          if (date.day <= event.getStartTime().day)
+      if (date.year <= event.getEndTime().year) {
+        if (date.month <= event.getEndTime().month) {
+          if (date.day <= event.getEndTime().day) {
             return id;
+          }
         }
       }
-
       id++;
     }
-
     return -1;
   }
 

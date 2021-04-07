@@ -70,4 +70,16 @@ class CalendarEvent {
 
     return copy;
   }
+
+  bool isTheSameYear(DateTime time) {
+    return (startTime.year == time.year || endTime.year == time.year);
+  }
+
+  bool isTheSameMonth(DateTime time) {
+    return isTheSameYear(time) && (startTime.month == time.month || endTime.month == time.month);
+  }
+
+  bool isTheSameDay(DateTime time) {
+    return isTheSameMonth(time) && (startTime.day == time.day || endTime.day == time.day);
+  }
 }

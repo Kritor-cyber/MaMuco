@@ -44,9 +44,6 @@ class mainPage extends StatelessWidget {
     info.setEvents(list);
     info2.setEvents(list);
 
-    List<CalendarEvent> list2 = <CalendarEvent>[];
-    list2.add(list.elementAt(1));
-    list2.add(list.elementAt(0));
     meetingsCalendar = MeetingsCalendar();
     meetingsCalendar.addEvents(list);
 
@@ -74,7 +71,7 @@ class mainPage extends StatelessWidget {
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
     list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 01, 12, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     drugsCalendar = DrugsCalendar();
     drugsCalendar.addEvents(list);

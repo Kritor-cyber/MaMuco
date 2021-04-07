@@ -156,7 +156,8 @@ class _CalendarWidget extends State<CalendarWidget> {
     while (date.weekday > 1)
       date = date.subtract(Duration(days: 1));
 
-    int id = widget.calendar.getFirstEventIdFrom(date);
+    int id;
+    int numberEventThisDay;
 
     int continueMonth = month;
     int previousMonth;
@@ -169,7 +170,13 @@ class _CalendarWidget extends State<CalendarWidget> {
       List<Widget> week = [];
 
       for (int i = 0; i < 7; i++) {
-        week.add(getDayFromDateTime(date, continueMonth));
+        numberEventThisDay = 0;
+        id = widget.calendar.getFirstEventIdFrom(date);
+        while (widget.calendar.isIndexInRange(id) && widget.calendar.getEvent(id).isTheSameDay(date)) {
+          numberEventThisDay++;
+          id++;
+        }
+        week.add(getDayFromDateTime(date, continueMonth, numberEventThisDay));
         date = date.add(Duration(days: 1));
       }
       weeks.add(Expanded(flex: 1, child: Row(children: week)));
@@ -178,7 +185,23 @@ class _CalendarWidget extends State<CalendarWidget> {
     return weeks;
   }
 
-  Widget getDayFromDateTime(DateTime date, int mainMonth) {
+  Widget getDayFromDateTime(DateTime date, int mainMonth, int numberEvent) {
+
+    List<Widget> children = [
+      Text(
+        date.day.toString(),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: date.month != mainMonth ? Colors.grey : Colors.black,
+        ),
+      ),
+    ];
+
+    /// Here is the actual way to represent events in monthly calendar but it will be change
+    for (int i = 0; i < numberEvent; i++) {
+      children.add(Text("●", style: TextStyle(color: Colors.green),));
+    }
+
     return Expanded(
       flex: 1,
       child: Container(
@@ -193,15 +216,7 @@ class _CalendarWidget extends State<CalendarWidget> {
           color: date.year == DateTime.now().year && date.month == DateTime.now().month && date.day == DateTime.now().day ? Colors.lightBlue : Colors.white,
         ),
         child: Column(
-          children: [
-            Text(
-              date.day.toString(),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: date.month != mainMonth ? Colors.grey : Colors.black,
-              ),
-            ),
-          ],
+          children: children,
         ),
       ),
     );
