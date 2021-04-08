@@ -23,6 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  fl_chart: ^0.12.0
+
   flutter_localizations:
     sdk: flutter
   syncfusion_flutter_calendar: ^18.4.49

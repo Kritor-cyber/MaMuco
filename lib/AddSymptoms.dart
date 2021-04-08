@@ -34,54 +34,10 @@ class _AddSymptoms extends State<AddSymptoms> {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        ListTile(
-                          title: Text("Symptome enregistrer 1"),
-                          tileColor: Colors.red,
-                          subtitle: Text("sous-titre"),
-                          leading: new Image.asset("assets/medic.png"),
-                          onTap: () {
-                            setState(() {
-                              print("Symptome 1 selected");
-                              widget.selectingSymptom = false;
-                            });
-                          },
-                        ),
-                        ListTile(
-                          title: Text("Symptome enregistrer 2"),
-                          tileColor: Colors.blue,
-                          subtitle: Text("sous-titre"),
-                          leading: new Image.asset("assets/lung.png"),
-                          onTap: () {
-                            setState(() {
-                              print("Symptome 2 selected");
-                              widget.selectingSymptom = false;
-                            });
-                          },
-                        ),
-                        ListTile(
-                          title: Text("Symptome enregistrer 3"),
-                          tileColor: Colors.green,
-                          subtitle: Text("sous-titre"),
-                          leading:  new Image.asset("assets/sick_boy.png"),
-                          onTap: () {
-                            setState(() {
-                              print("Symptome 3 selected");
-                              widget.selectingSymptom = false;
-                            });
-                          },
-                        ),
-                        ListTile(
-                          title: Text("Ajouter un nouveau symptome à la liste"),
-                          tileColor: Colors.yellow,
-                          subtitle: Text("sous-titre"),
-                          leading:  new Image.asset("assets/heart.png"),
-                          onTap: () {
-                            setState(() {
-                              print("Add symptom");
-                              widget.selectingSymptom = false;
-                            });
-                          },
-                        ),
+                        getListZone(Text("Ajouter symptome 1"), Colors.red, Text("Sous titre"), Image(image: AssetImage("assets/lung.png"))),
+                        getListZone(Text("Ajouter symptome 2"), Colors.blue, Text("Sous titre"), Image(image: AssetImage("assets/medic.png"))),
+                        getListZone(Text("Ajouter symptome 3"), Colors.green, Text("Sous titre"), Image(image: AssetImage("assets/sick_boy.png"))),
+                        getListZone(Text("Ajouter un nouveau symptome"), Colors.yellow, Text("Sous titre"), Image(image: AssetImage("assets/heart.png"))),
                       ],
                     ),
                   ),
@@ -92,7 +48,6 @@ class _AddSymptoms extends State<AddSymptoms> {
         ),
       ),
     );
-
     return Scaffold(
       appBar: AppBar(
         title: Text(language.getAddSymptoms()),
@@ -126,7 +81,22 @@ class _AddSymptoms extends State<AddSymptoms> {
             widget.selectingSymptom ? widget.symptomSelection : Container(),
           ],
         ),
-      )
+      ),
+    );
+  }
+
+  ListTile getListZone(Text title, Color color, Text subtitle, Image asset) {
+    return ListTile(
+      title: title,
+      tileColor: color,
+      subtitle: subtitle,
+      leading: asset,
+      onTap: () {
+        setState(() {
+          print("symptome selectionne");
+          widget.selectingSymptom = false;
+        });
+      },
     );
   }
 }
