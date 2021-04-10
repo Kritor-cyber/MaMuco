@@ -102,13 +102,13 @@ class mainPage extends StatelessWidget {
       body: Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             Column(
-              children: [
-                info.getWidget(),
-                info2.getWidget(),
-              ]
+                children: [
+                  info.getWidget(),
+                  info2.getWidget(),
+                ]
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,34 +139,34 @@ class mainPage extends StatelessWidget {
 
   Widget getAccessButton(BuildContext context, IconData icon, String text, String tooltip, Calendar calendar) {
     return Expanded(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 4),
-        child: Column(
-          children: [
-            IconButton(
-              icon: Icon(icon),
-              // A lot of colors to test
-              color: Colors.red,
-              disabledColor: Colors.blueGrey,
-              focusColor: Colors.orange,
-              highlightColor: Colors.pink,
-              hoverColor: Colors.blue,
-              splashColor: Colors.green,
-              tooltip: tooltip,
-              iconSize: 45,
-              splashRadius: 40,
+        child: Container(
+          margin: EdgeInsets.only(bottom: 4),
+          child: Column(
+              children: [
+                IconButton(
+                  icon: Icon(icon),
+                  // A lot of colors to test
+                  color: Colors.red,
+                  disabledColor: Colors.blueGrey,
+                  focusColor: Colors.orange,
+                  highlightColor: Colors.pink,
+                  hoverColor: Colors.blue,
+                  splashColor: Colors.green,
+                  tooltip: tooltip,
+                  iconSize: 45,
+                  splashRadius: 40,
 
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarWidget(calendar)));
-              },
-            ),
-            Text(text),
-          ]
-        ),
-      )
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarWidget(calendar)));
+                  },
+                ),
+                Text(text),
+              ]
+          ),
+        )
     );
   }
-  
+
   Widget getAddingBarSymptoms (BuildContext context) {
     return ElevatedButton (
       onPressed:() {

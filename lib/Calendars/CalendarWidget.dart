@@ -29,9 +29,6 @@ class _CalendarWidget extends State<CalendarWidget> {
 
     if (widget.actualMonth == null) {
 
-      widget.prevMonth = getMonthlyWidget(subtractOneMonth(widget.dateToShow));
-      widget.actualMonth = getMonthlyWidget(widget.dateToShow);
-      widget.nextMonth = getMonthlyWidget(addOneMonth(widget.dateToShow));
       widget._calendarViewer = PageController(initialPage: 1);
       widget._calendarViewer.addListener(() {
         if (widget.initialOffset == -1)
@@ -59,6 +56,10 @@ class _CalendarWidget extends State<CalendarWidget> {
         }
       });
     }
+
+    widget.prevMonth = getMonthlyWidget(subtractOneMonth(widget.dateToShow));
+    widget.actualMonth = getMonthlyWidget(widget.dateToShow);
+    widget.nextMonth = getMonthlyWidget(addOneMonth(widget.dateToShow));
   }
 
   @override
@@ -87,19 +88,13 @@ class _CalendarWidget extends State<CalendarWidget> {
   }
 
   Widget getMonthlyWidget(DateTime time) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          getMonthlyTitle(time.year, time.month),
-          getDayList(),
-          getAllMonthDays(time.year, time.month),
-          Container(
-            height: 150,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        getMonthlyTitle(time.year, time.month),
+        getDayList(),
+        getAllMonthDays(time.year, time.month),
+      ],
     );
   }
 
@@ -141,11 +136,9 @@ class _CalendarWidget extends State<CalendarWidget> {
   }
 
   Widget getAllMonthDays(int year, int month) {
-    return Expanded(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
+    return Column(
+        mainAxisSize: MainAxisSize.min,
         children: getAllWeekDays(year, month),
-      ),
     );
   }
 
@@ -179,7 +172,7 @@ class _CalendarWidget extends State<CalendarWidget> {
         week.add(getDayFromDateTime(date, continueMonth, numberEventThisDay));
         date = date.add(Duration(days: 1));
       }
-      weeks.add(Expanded(flex: 1, child: Row(children: week)));
+      weeks.add(Row(children: week));
     }
 
     return weeks;
@@ -198,27 +191,57 @@ class _CalendarWidget extends State<CalendarWidget> {
     ];
 
     /// Here is the actual way to represent events in monthly calendar but it will be change
+    List<Widget> events = [];
     for (int i = 0; i < numberEvent; i++) {
-      children.add(Text("●", style: TextStyle(color: Colors.green),));
+      events.add(Text("●", style: TextStyle(color: Colors.green),));
     }
 
+    if (numberEvent > 0)
+      children.add(Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: events,
+      ));
+
+    double size = MediaQuery.of(context).size.width/7;
+
+    Color backgroundColor = Color.fromARGB(0, 0, 0, 0);
+    if (isSameDay(date, widget.dateToShow)) {
+      backgroundColor = Colors.lightBlue;
+    }
+    else if (isSameDay(date, DateTime.now()))
+      backgroundColor = Colors.lightBlue[100];
+
+    /// This Expanded is to fill the width
     return Expanded(
       flex: 1,
       child: Container(
-        //height: double.infinity,
-        //color: Colors.orange,
+        width: size,
+        height: size,
+
+        margin: EdgeInsets.all(3),
         decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          border: Border.all(
-            width: 1,
-            color: Colors.black,
-          ),
-          color: date.year == DateTime.now().year && date.month == DateTime.now().month && date.day == DateTime.now().day ? Colors.lightBlue : Colors.white,
+          shape: BoxShape.circle,
+          color: backgroundColor,
         ),
-        child: Column(
-          children: children,
+        child: GestureDetector(
+          onTap: () => SelectDate(date),
+          child: Container(
+            /// Needed to have GestureDetector filling Column
+            color: Color.fromARGB(0, 100, 100, 100),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            )
+          ),
         ),
       ),
     );
+  }
+
+  void SelectDate(DateTime date) {
+    setState(() {
+      widget.dateToShow = date;
+    });
   }
 }
