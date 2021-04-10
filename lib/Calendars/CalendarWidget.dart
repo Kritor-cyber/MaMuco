@@ -6,7 +6,6 @@ import 'package:ma_muco/utilities.dart';
 import 'Calendar.dart';
 
 class CalendarWidget extends StatefulWidget {
-
   final Calendar calendar;
   DateTime dateToShow = DateTime.now();
 
@@ -20,32 +19,33 @@ class CalendarWidget extends StatefulWidget {
 }
 
 class _CalendarWidget extends State<CalendarWidget> {
-
   int prevId = 0;
   double position = 0;
   Duration duration = Duration(milliseconds: 1);
 
   void createMonths() {
-
     if (widget.actualMonth == null) {
-
       widget._calendarViewer = PageController(initialPage: 1);
       widget._calendarViewer.addListener(() {
         if (widget.initialOffset == -1)
           widget.initialOffset = widget._calendarViewer.offset;
 
-        if (widget.initialOffset - widget._calendarViewer.offset > 0.75 * widget.initialOffset) {
-          widget._calendarViewer.jumpTo(widget.initialOffset+widget._calendarViewer.offset);
+        if (widget.initialOffset - widget._calendarViewer.offset >
+            0.75 * widget.initialOffset) {
+          widget._calendarViewer
+              .jumpTo(widget.initialOffset + widget._calendarViewer.offset);
           widget.dateToShow = subtractOneMonth(widget.dateToShow);
 
           widget.nextMonth = widget.actualMonth;
           widget.actualMonth = widget.prevMonth;
-          widget.prevMonth = getMonthlyWidget(subtractOneMonth(widget.dateToShow));
+          widget.prevMonth =
+              getMonthlyWidget(subtractOneMonth(widget.dateToShow));
 
           setState(() {});
-        }
-        else if (widget._calendarViewer.offset - widget.initialOffset > 0.75 * widget.initialOffset) {
-          widget._calendarViewer.jumpTo(widget._calendarViewer.offset-widget.initialOffset);
+        } else if (widget._calendarViewer.offset - widget.initialOffset >
+            0.75 * widget.initialOffset) {
+          widget._calendarViewer
+              .jumpTo(widget._calendarViewer.offset - widget.initialOffset);
           widget.dateToShow = addOneMonth(widget.dateToShow);
 
           widget.prevMonth = widget.actualMonth;
@@ -64,7 +64,6 @@ class _CalendarWidget extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     createMonths();
 
     return Scaffold(
@@ -72,16 +71,14 @@ class _CalendarWidget extends State<CalendarWidget> {
         title: Text(widget.calendar.getTitle() + " - " + language.getMonthly()),
       ),
       body: Scaffold(
-        body: GestureDetector(
-          child: PageView(
-            controller: widget._calendarViewer,
-            scrollDirection: Axis.vertical,
-            children: [
-              widget.prevMonth,
-              widget.actualMonth,
-              widget.nextMonth,
-            ],
-          ),
+        body: PageView(
+          controller: widget._calendarViewer,
+          scrollDirection: Axis.vertical,
+          children: [
+            widget.prevMonth,
+            widget.actualMonth,
+            widget.nextMonth,
+          ],
         ),
       ),
     );
@@ -89,11 +86,13 @@ class _CalendarWidget extends State<CalendarWidget> {
 
   Widget getMonthlyWidget(DateTime time) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         getMonthlyTitle(time.year, time.month),
         getDayList(),
         getAllMonthDays(time.year, time.month),
+        getEventsOfTheDay(time.year, time.month),
       ],
     );
   }
@@ -121,8 +120,7 @@ class _CalendarWidget extends State<CalendarWidget> {
   List<Widget> getDayListText() {
     List<Widget> days = [];
 
-    for (int i = 1; i <= 7; i++)
-    {
+    for (int i = 1; i <= 7; i++) {
       days.add(Expanded(
         flex: 1,
         child: Text(
@@ -137,8 +135,8 @@ class _CalendarWidget extends State<CalendarWidget> {
 
   Widget getAllMonthDays(int year, int month) {
     return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: getAllWeekDays(year, month),
+      mainAxisSize: MainAxisSize.min,
+      children: getAllWeekDays(year, month),
     );
   }
 
@@ -146,8 +144,7 @@ class _CalendarWidget extends State<CalendarWidget> {
     List<Widget> weeks = [];
 
     DateTime date = DateTime(year, month, 1);
-    while (date.weekday > 1)
-      date = date.subtract(Duration(days: 1));
+    while (date.weekday > 1) date = date.subtract(Duration(days: 1));
 
     int id;
     int numberEventThisDay;
@@ -157,7 +154,7 @@ class _CalendarWidget extends State<CalendarWidget> {
     if (continueMonth == 1)
       previousMonth = 12;
     else
-      previousMonth = continueMonth-1;
+      previousMonth = continueMonth - 1;
 
     while (date.month == continueMonth || date.month == previousMonth) {
       List<Widget> week = [];
@@ -165,7 +162,8 @@ class _CalendarWidget extends State<CalendarWidget> {
       for (int i = 0; i < 7; i++) {
         numberEventThisDay = 0;
         id = widget.calendar.getFirstEventIdFrom(date);
-        while (widget.calendar.isIndexInRange(id) && widget.calendar.getEvent(id).isTheSameDay(date)) {
+        while (widget.calendar.isIndexInRange(id) &&
+            widget.calendar.getEvent(id).isTheSameDay(date)) {
           numberEventThisDay++;
           id++;
         }
@@ -179,7 +177,6 @@ class _CalendarWidget extends State<CalendarWidget> {
   }
 
   Widget getDayFromDateTime(DateTime date, int mainMonth, int numberEvent) {
-
     List<Widget> children = [
       Text(
         date.day.toString(),
@@ -190,10 +187,13 @@ class _CalendarWidget extends State<CalendarWidget> {
       ),
     ];
 
-    /// Here is the actual way to represent events in monthly calendar but it will be change
+    /// Here is the actual way to represent events in monthly calendar
     List<Widget> events = [];
-    for (int i = 0; i < numberEvent; i++) {
-      events.add(Text("●", style: TextStyle(color: Colors.green),));
+    for (int i = 0; i < numberEvent && i < 4; i++) {
+      events.add(Text(
+        "●",
+        style: TextStyle(color: Colors.green),
+      ));
     }
 
     if (numberEvent > 0)
@@ -202,13 +202,12 @@ class _CalendarWidget extends State<CalendarWidget> {
         children: events,
       ));
 
-    double size = MediaQuery.of(context).size.width/7;
+    double size = MediaQuery.of(context).size.width / 7;
 
     Color backgroundColor = Color.fromARGB(0, 0, 0, 0);
     if (isSameDay(date, widget.dateToShow)) {
       backgroundColor = Colors.lightBlue;
-    }
-    else if (isSameDay(date, DateTime.now()))
+    } else if (isSameDay(date, DateTime.now()))
       backgroundColor = Colors.lightBlue[100];
 
     /// This Expanded is to fill the width
@@ -217,31 +216,72 @@ class _CalendarWidget extends State<CalendarWidget> {
       child: Container(
         width: size,
         height: size,
-
         margin: EdgeInsets.all(3),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: backgroundColor,
         ),
         child: GestureDetector(
-          onTap: () => SelectDate(date),
+          onTap: () => selectDate(date),
           child: Container(
-            /// Needed to have GestureDetector filling Column
-            color: Color.fromARGB(0, 100, 100, 100),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            )
-          ),
+
+              /// Needed to have GestureDetector filling Column
+              color: Color.fromARGB(0, 100, 100, 100),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: children,
+              )),
         ),
       ),
     );
   }
 
-  void SelectDate(DateTime date) {
+  void selectDate(DateTime date) {
     setState(() {
       widget.dateToShow = date;
     });
+  }
+
+  Widget getEventsOfTheDay(int year, int month) {
+    List<Widget> events = [];
+
+    if (widget.dateToShow.year == year && widget.dateToShow.month == month) {
+      int id = widget.calendar.getFirstEventIdFrom(widget.dateToShow);
+      while (widget.calendar.isIndexInRange(id) && widget.calendar.getEvent(id).isTheSameDay(widget.dateToShow)) {
+        events.add(getDailyEvent(id));
+        id++;
+      }
+    }
+
+    return Expanded(
+      child: ListView(
+        children: events,
+    ));
+  }
+
+  Widget getDailyEvent(int eventId) {
+    return ListTile(
+      contentPadding: EdgeInsets.all(5),
+      title: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          border: Border.all(width: 3, color: Colors.lightBlue[100]),
+        ),
+        child: Column(children: [
+          Container(
+            width: double.infinity,
+            child: Text(
+              widget.calendar.getEvent(eventId).title,
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Text(widget.calendar.getEvent(eventId).infos),
+        ]),
+      ),
+    );
   }
 }

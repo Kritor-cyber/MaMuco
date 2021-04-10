@@ -73,6 +73,26 @@ class mainPage extends StatelessWidget {
     list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
     list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     drugsCalendar = DrugsCalendar();
     drugsCalendar.addEvents(list);
 
