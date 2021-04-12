@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ma_muco/Calendars/CalendarWidget.dart';
 import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
+import 'package:ma_muco/Calendars/OccurrenceTime.dart';
 import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
@@ -61,9 +62,11 @@ class mainPage extends StatelessWidget {
     list.last.setInfos("Symptome 2");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test 3 Symptome");
-    list.last.setStartTime(DateTime(2021, 04, 03, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 03, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 12, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 12, 12, 43));
     list.last.setInfos("Symptome 3");
+    list.last.setOccurrence(OccurrenceTime(day: 1)); // tous les jours
+    list.last.setRepetition(7*4); // pendant 28 jours
     symptomsCalendar = SymptomsCalendar();
     symptomsCalendar.addEvents(list);
 

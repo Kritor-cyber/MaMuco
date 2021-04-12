@@ -1,3 +1,5 @@
+import 'package:ma_muco/Calendars/OccurrenceTime.dart';
+
 import 'utilities.dart';
 
 class CalendarEvent {
@@ -5,14 +7,14 @@ class CalendarEvent {
   DateTime startTime = null, endTime = null;
   String title;
   String infos;
-  DateTime occurrence;  //Describe the time elapsed between two repetition of the event (if it's value equals 0 seconds, there is no repetition)
+  OccurrenceTime occurrence = OccurrenceTime();  //Describe the time elapsed between two repetition of the event (if it's value equals 0 seconds, there is no repetition)
   int numberRepetition; //Contain the number of times the event is repeat (useless value if no repetition, infinite repetition if it's value equals zero)
 
   DateTime getStartTime() { return startTime; }
   DateTime getEndTime() { return endTime; }
   String getTitle() { return title; }
   String getInfos() { return infos; }
-  DateTime getOccurrence() { return occurrence; }
+  OccurrenceTime getOccurrence() { return occurrence; }
   int getRepetition() { return numberRepetition; }
 
   /// return FALSE if the new start time isn't before the actual end time
@@ -53,7 +55,7 @@ class CalendarEvent {
 
   void setTitle(String newTitle) { title = newTitle; }
   void setInfos(String newInfos) { infos = newInfos; }
-  void setOccurrence(DateTime time) { occurrence = time; }
+  void setOccurrence(OccurrenceTime time) { occurrence = time; }
   void setRepetition(int repetition) { numberRepetition = repetition; }
 
   String getStartTimeString() { return dateToString(startTime); }
@@ -72,14 +74,59 @@ class CalendarEvent {
   }
 
   bool isTheSameYear(DateTime time) {
+
+    if (getOccurrence().isNull()) {
+      return (startTime.year == time.year || endTime.year == time.year);
+    }
+
+    bool sameYear = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameYear |= isTheSameYearOccurrence(time, i);
+    }
+
+    return sameYear;
+  }
+
+  bool isTheSameYearOccurrence(DateTime time, int occurrence) {
+    time = DateTime(time.year - getOccurrence().year * occurrence, time.month, time.day);
     return (startTime.year == time.year || endTime.year == time.year);
   }
 
   bool isTheSameMonth(DateTime time) {
-    return isTheSameYear(time) && (startTime.month == time.month || endTime.month == time.month);
+
+    if (getOccurrence().isNull()) {
+      return isTheSameYearOccurrence(time, 0) && (startTime.month == time.month || endTime.month == time.month);
+    }
+
+    bool sameMonth = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameMonth |= isTheSameMonthOccurrence(time, i);
+    }
+
+    return sameMonth;
+  }
+
+  bool isTheSameMonthOccurrence(DateTime time, int occurrence) {
+    time = DateTime(time.year, time.month - getOccurrence().month * occurrence, time.day);
+    return isTheSameYearOccurrence(time, occurrence) && (startTime.month == time.month || endTime.month == time.month);
   }
 
   bool isTheSameDay(DateTime time) {
-    return isTheSameMonth(time) && (startTime.day == time.day || endTime.day == time.day);
+
+    if (getOccurrence().isNull()) {
+      return isTheSameMonthOccurrence(time, 0) && (startTime.day == time.day || endTime.day == time.day);
+    }
+
+    bool sameDay = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameDay |= isTheSameDayOccurrence(time, i);
+    }
+
+    return sameDay;
+  }
+
+  bool isTheSameDayOccurrence(DateTime time, int occurrence) {
+    time = DateTime(time.year, time.month, time.day - getOccurrence().day * occurrence);
+    return isTheSameMonthOccurrence(time, occurrence) && (startTime.day == time.day || endTime.day == time.day);
   }
 }

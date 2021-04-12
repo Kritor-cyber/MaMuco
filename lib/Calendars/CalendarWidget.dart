@@ -162,8 +162,7 @@ class _CalendarWidget extends State<CalendarWidget> {
       for (int i = 0; i < 7; i++) {
         numberEventThisDay = 0;
         id = widget.calendar.getFirstEventIdFrom(date);
-        while (widget.calendar.isIndexInRange(id) &&
-            widget.calendar.getEvent(id).isTheSameDay(date)) {
+        while (widget.calendar.isIndexInRange(id) && widget.calendar.getEvent(id).isTheSameDay(date)) {
           numberEventThisDay++;
           id++;
         }
