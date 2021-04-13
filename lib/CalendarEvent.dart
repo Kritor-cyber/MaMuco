@@ -62,6 +62,10 @@ class CalendarEvent {
 
   String getEndTimeString() { return dateToString(endTime); }
 
+  String getStartHourString() { return hourToString(startTime); }
+
+  String getEndHourString() { return hourToString(endTime); }
+
   CalendarEvent copy() {
     CalendarEvent copy = CalendarEvent();
     copy.setTimes(startTime, endTime);
@@ -76,7 +80,7 @@ class CalendarEvent {
   bool isTheSameYear(DateTime time) {
 
     if (getOccurrence().isNull()) {
-      return (startTime.year == time.year || endTime.year == time.year);
+      return (time.year >= startTime.year && time.year <= endTime.year);
     }
 
     bool sameYear = false;
@@ -89,13 +93,13 @@ class CalendarEvent {
 
   bool isTheSameYearOccurrence(DateTime time, int occurrence) {
     time = DateTime(time.year - getOccurrence().year * occurrence, time.month, time.day);
-    return (startTime.year == time.year || endTime.year == time.year);
+    return (time.year >= startTime.year && time.year <= endTime.year);
   }
 
   bool isTheSameMonth(DateTime time) {
 
     if (getOccurrence().isNull()) {
-      return isTheSameYearOccurrence(time, 0) && (startTime.month == time.month || endTime.month == time.month);
+      return isTheSameYear(time) && (time.month >= startTime.month && time.month <= endTime.month);
     }
 
     bool sameMonth = false;
@@ -108,13 +112,38 @@ class CalendarEvent {
 
   bool isTheSameMonthOccurrence(DateTime time, int occurrence) {
     time = DateTime(time.year, time.month - getOccurrence().month * occurrence, time.day);
-    return isTheSameYearOccurrence(time, occurrence) && (startTime.month == time.month || endTime.month == time.month);
+    return isTheSameYearOccurrence(time, occurrence) && (time.month >= startTime.month && time.month <= endTime.month);
   }
 
+  /* ATTENTION only isTheSameDay really work, the other functions must be updated to take care of event that went on many month/year + occurrence */
   bool isTheSameDay(DateTime time) {
 
     if (getOccurrence().isNull()) {
-      return isTheSameMonthOccurrence(time, 0) && (startTime.day == time.day || endTime.day == time.day);
+      if (time.year != startTime.year || time.year != endTime.year) {
+        if (time.year >= startTime.year && time.year <= endTime.year) {
+          return true;
+        }
+        else
+          return isTheSameDayOccurrence(time, 0);
+      }
+      else
+      {
+        if (time.month != startTime.month || time.month != endTime.month) {
+          if (time.month >= startTime.month && time.month <= endTime.month)
+            return true;
+          else
+            return isTheSameDayOccurrence(time, 0);
+        }
+        else
+        {
+          if (time.day != startTime.day || time.day != endTime.month) {
+            if (time.day >= startTime.day && time.year <= endTime.day)
+              return true;
+            else
+              return isTheSameDayOccurrence(time, 0);
+          }
+        }
+      }
     }
 
     bool sameDay = false;
@@ -127,6 +156,6 @@ class CalendarEvent {
 
   bool isTheSameDayOccurrence(DateTime time, int occurrence) {
     time = DateTime(time.year, time.month, time.day - getOccurrence().day * occurrence);
-    return isTheSameMonthOccurrence(time, occurrence) && (startTime.day == time.day || endTime.day == time.day);
+    return isTheSameMonthOccurrence(time, occurrence) && (time.day >= startTime.day && time.day <= endTime.day);
   }
 }

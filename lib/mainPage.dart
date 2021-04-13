@@ -71,6 +71,7 @@ class mainPage extends StatelessWidget {
     symptomsCalendar.addEvents(list);
 
 
+    list.clear();
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
     list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
@@ -78,24 +79,29 @@ class mainPage extends StatelessWidget {
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 13, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 14, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 14, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 15, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 15, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 16, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 7, 43));
+    list.last.setEndTime(DateTime(2021, 05, 02, 8, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2020, 12, 31, 7, 0));
+    list.last.setEndTime(DateTime(2021, 01, 01, 7, 0));
+    list.last.setInfos("Prendre 2 comprimés de ... ");
     drugsCalendar = DrugsCalendar();
     drugsCalendar.addEvents(list);
 

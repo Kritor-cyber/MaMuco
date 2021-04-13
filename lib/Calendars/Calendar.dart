@@ -57,8 +57,12 @@ abstract class Calendar extends CalendarDataSource {
 
     for (CalendarEvent event in appointments) {
       if (event.getOccurrence().isNull()) {
-        if (date.year <= event.getEndTime().year) {
-          if (date.month <= event.getEndTime().month) {
+        if (date.year < event.getEndTime().year)
+          return id;
+        else if (date.year == event.getEndTime().year){
+          if (date.month < event.getEndTime().month)
+            return id;
+          else if (date.month == event.getEndTime().month) {
             if (date.day <= event.getEndTime().day) {
               return id;
             }
@@ -71,8 +75,12 @@ abstract class Calendar extends CalendarDataSource {
         for (int i = 0; i < event.getRepetition(); i++)
         {
           tmp = DateTime(date.year - event.getOccurrence().year * i, date.month - event.getOccurrence().month * i, date.day - event.getOccurrence().day * i);
-          if (tmp.year <= event.getEndTime().year) {
-            if (tmp.month <= event.getEndTime().month) {
+          if (tmp.year < event.getEndTime().year)
+            return id;
+          else if (tmp.year == event.getEndTime().year){
+            if (tmp.month < event.getEndTime().month)
+              return id;
+            else if (tmp.month == event.getEndTime().month) {
               if (tmp.day <= event.getEndTime().day) {
                 return id;
               }

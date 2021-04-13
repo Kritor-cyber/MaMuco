@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ma_muco/utilities.dart';
 
+import '../CalendarEvent.dart';
 import 'Calendar.dart';
 
 class CalendarWidget extends StatefulWidget {
@@ -73,7 +74,7 @@ class _CalendarWidget extends State<CalendarWidget> {
       body: Scaffold(
         body: PageView(
           controller: widget._calendarViewer,
-          scrollDirection: Axis.vertical,
+          scrollDirection: Axis.horizontal,
           children: [
             widget.prevMonth,
             widget.actualMonth,
@@ -259,9 +260,18 @@ class _CalendarWidget extends State<CalendarWidget> {
     ));
   }
 
+  /* ATTENTION Problem with occurrent events */
   Widget getDailyEvent(int eventId) {
+    CalendarEvent event = widget.calendar.getEvent(eventId);
     return ListTile(
       contentPadding: EdgeInsets.all(5),
+      leading: Column(
+        children: [
+          Text(isSameDay(event.getStartTime(), widget.dateToShow) ? event.getStartHourString() : isSameMonth(event.getStartTime(), widget.dateToShow) ? language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " " + event.getStartHourString() : language.getMonth(event.getStartTime().month) + "/" + language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " "  + event.getStartHourString()),
+          Text("-"),
+          Text(isSameDay(event.getEndTime(), widget.dateToShow) ? event.getEndHourString() : isSameMonth(event.getEndTime(), widget.dateToShow) ? language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " "  + event.getEndHourString() : language.getMonth(event.getEndTime().month) + "/" + language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " "  + event.getEndHourString()),
+        ],
+      ),
       title: Container(
         width: double.infinity,
         padding: EdgeInsets.all(5),
@@ -274,11 +284,11 @@ class _CalendarWidget extends State<CalendarWidget> {
           Container(
             width: double.infinity,
             child: Text(
-              widget.calendar.getEvent(eventId).title,
+              event.title,
               textAlign: TextAlign.left,
             ),
           ),
-          Text(widget.calendar.getEvent(eventId).infos),
+          Text(event.infos),
         ]),
       ),
     );

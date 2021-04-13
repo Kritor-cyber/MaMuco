@@ -18,9 +18,13 @@ String dateToString(DateTime time) {
     else
         string += twoDigitInt(time.day) + "-" + twoDigitInt(time.month) + "-" + twoDigitInt(time.year);
 
-    string += " à " + twoDigitInt(time.hour) + ":" + twoDigitInt(time.minute);
+    string += " à " + hourToString(time);
 
     return string;
+}
+
+String hourToString(DateTime time) {
+    return twoDigitInt(time.hour) + ":" + twoDigitInt(time.minute);
 }
 
 DateTime addOneMonth(DateTime time) {
@@ -45,6 +49,10 @@ int getNumberOfMonthDays(DateTime month) {
     return 0;
 }
 
+bool isSameMonth(DateTime date1, DateTime date2) {
+    return date1.year == date2.year && date1.month == date2.month;
+}
+
 bool isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+    return isSameMonth(date1, date2) && date1.day == date2.day;
 }
