@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ma_muco/Calendars/CalendarWidget.dart';
 import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
-import 'package:ma_muco/Calendars/OccurrenceTime.dart';
 import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
@@ -46,6 +45,9 @@ class mainPage extends StatelessWidget {
     info2.setEvents(list);
 
     meetingsCalendar = MeetingsCalendar();
+    symptomsCalendar = SymptomsCalendar();
+    drugsCalendar = DrugsCalendar();
+    /*meetingsCalendar = MeetingsCalendar();
     meetingsCalendar.addEvents(list);
 
 
@@ -117,7 +119,7 @@ class mainPage extends StatelessWidget {
     list.last.setTitle("RDV Médical");
     list.last.setStartTime(DateTime(2021, 03, 31, 13, 00));
     list.last.setEndTime(DateTime(2021, 03, 31, 17, 45));
-    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
+    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");*/
     /** END */
   }
 

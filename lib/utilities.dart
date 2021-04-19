@@ -27,6 +27,13 @@ String hourToString(DateTime time) {
     return twoDigitInt(time.hour) + ":" + twoDigitInt(time.minute);
 }
 
+DateTime stringToDateTime(String time) {
+    if (time.length == 16)
+        return DateTime(int.parse(time.substring(0, 4)), int.parse(time.substring(5, 7)), int.parse(time.substring(8, 10)), int.parse(time.substring(11, 13)), int.parse(time.substring(14, 16)));
+    else
+        print("ERROR : " + time + " is not a valid DateTime");
+}
+
 DateTime addOneMonth(DateTime time) {
     int numberOfDays = getNumberOfMonthDays(time);
     return time.add(Duration(days: numberOfDays - time.day + 1));

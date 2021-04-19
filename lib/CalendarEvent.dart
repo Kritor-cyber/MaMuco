@@ -10,6 +10,27 @@ class CalendarEvent {
   OccurrenceTime occurrence = OccurrenceTime();  //Describe the time elapsed between two repetition of the event (if it's value equals 0 seconds, there is no repetition)
   int numberRepetition; //Contain the number of times the event is repeat (useless value if no repetition, infinite repetition if it's value equals zero)
 
+  CalendarEvent() {}
+
+  /// JSON support
+  CalendarEvent.fromJson(Map<String, dynamic> json)
+      : startTime = stringToDateTime(json['startTime']),
+        endTime = stringToDateTime(json['endTime']),
+        title = json['title'],
+        infos = json['infos'],
+        occurrence = OccurrenceTime.fromString(json['occurrence']),
+        numberRepetition = int.parse(json['numberRepetition']);
+
+  Map<String, dynamic> toJson() => {
+    'startTime': startTime,
+    'endTime': endTime,
+    'title': title,
+    'infos': infos,
+    'occurrence': occurrence,
+    'numberRepetition': numberRepetition,
+  };
+  /// End JSON support
+
   DateTime getStartTime() { return startTime; }
   DateTime getEndTime() { return endTime; }
   String getTitle() { return title; }

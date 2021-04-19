@@ -11,6 +11,14 @@ import 'utilities.dart';
 
 void main() {
 
+  // Il y a normalement un moyen de ne pas avoir besoin d'appeler cette fonction : https://flutter.dev/docs/cookbook/persistence/reading-writing-files
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// BUG IF THE FILE DOES NOT EXIST
+  //File fichier = File('/data/user/0/fr.benevappli.ma_muco/app_flutter/events.json');
+  /// BUG 1 JANUARY
+  //fichier.writeAsStringSync('{"startTime": "2021:04:02:01:01", "endTime": "2021:04:02:10:01", "title": "Mon événement", "infos": "Quelques infos BONUS", "occurrence": "0000:00:00","numberRepetition": "0"}');
+
   //debugPaintSizeEnabled = true;
   /* English is the default language but is set to system language if it exists*/
   language = LanguageEn();
