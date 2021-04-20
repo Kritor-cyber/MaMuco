@@ -1,7 +1,7 @@
 class OccurrenceTime {
-  int year;
-  int month;
-  int day;
+  int year = 0;
+  int month = 0;
+  int day = 0;
 
   OccurrenceTime({this.year = 0, this.month = 0, this.day = 0});
 

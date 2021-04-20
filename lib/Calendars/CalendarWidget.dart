@@ -66,7 +66,6 @@ class _CalendarWidget extends State<CalendarWidget> {
   @override
   Widget build(BuildContext context) {
     createMonths();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.calendar.getTitle() + " - " + language.getMonthly()),

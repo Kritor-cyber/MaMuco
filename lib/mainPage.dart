@@ -215,7 +215,7 @@ class mainPage extends StatelessWidget {
   Widget getAddingBarEvents (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents(meetingsCalendar)));
       },
       style : ButtonStyle (
         backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),

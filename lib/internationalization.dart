@@ -23,7 +23,6 @@ abstract class Internationalization {
 	//Add Events
 	String getNameEvent();
 	String getDate();
-	String getHour();
 	String getDetails();
 	String getValidate();
 }
@@ -110,8 +109,6 @@ class LanguageFr extends Internationalization {
 	String getNameEvent() {return "Evenement";}
 	@override
 	String getDate(){ return 'Date';}
-	@override
-	String getHour() { return 'Heure';}
 	@override
 	String getDetails() {return 'Details'; }
 	@override
@@ -201,8 +198,6 @@ class LanguageEn extends Internationalization {
 	String getNameEvent() {return "Event";}
 	@override
 	String getDate(){ return 'Date';}
-	@override
-	String getHour() { return 'Hour';}
 	@override
 	String getDetails() {return 'Details'; }
 	@override

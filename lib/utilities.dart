@@ -32,6 +32,12 @@ DateTime stringToDateTime(String time) {
         return DateTime(int.parse(time.substring(0, 4)), int.parse(time.substring(5, 7)), int.parse(time.substring(8, 10)), int.parse(time.substring(11, 13)), int.parse(time.substring(14, 16)));
     else
         print("ERROR : " + time + " is not a valid DateTime");
+
+    return null;
+}
+
+String dateTimeToStringLittle(DateTime time) {
+    return time.year.toString() + ":" + twoDigitInt(time.month) + ":" + twoDigitInt(time.day) + ":" + twoDigitInt(time.hour) + ":" + twoDigitInt(time.minute);
 }
 
 DateTime addOneMonth(DateTime time) {

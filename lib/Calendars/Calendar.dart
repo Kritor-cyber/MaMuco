@@ -33,12 +33,12 @@ abstract class Calendar extends CalendarDataSource {
 
         // Read the file
         List<String> contents = file.readAsLinesSync();
-        print("FICHIER : " + file.toString());
+        //print("FICHIER : " + file.toString());
         for (String line in contents) {
           Map<String, dynamic> eventMap = jsonDecode(line);
           CalendarEvent event = CalendarEvent.fromJson(eventMap);
-          print(event.getStartTime());
-          print(event.getEndTime());
+          //print(event.getStartTime());
+          //print(event.getEndTime());
           addEvent(event);
         }
       }
@@ -51,8 +51,9 @@ abstract class Calendar extends CalendarDataSource {
     try {
       final file = await localFile;
 
+      file.writeAsStringSync("", mode: FileMode.write);
       for (CalendarEvent event in appointments) {
-        file.writeAsStringSync(event.toJson().toString());
+        file.writeAsStringSync(event.toJson().toString() + "\n", mode: FileMode.append);
       }
     } catch (e) {
       print("ERROR OCCURED WHILE WRITING : " + e);
