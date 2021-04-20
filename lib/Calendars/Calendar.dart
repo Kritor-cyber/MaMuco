@@ -17,39 +17,39 @@ abstract class Calendar extends CalendarDataSource {
   }
 
   /// Gestion des fichiers
-  Future<String> get _localPath async {
+  Future<String> get localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
   }
 
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/events.json');
-  }
+   Future<File> get localFile;
 
   void readEvents() async {
-    /*try {*/
-      final file = await _localFile;
+    try {
+      final file = await localFile;
+      if (file.existsSync()) {
+        //final file = await localFile;
 
-      // Read the file
-      List<String> contents = file.readAsLinesSync();
-      print("FICHIER : " + file.toString());
-      for (String line in contents) {
-        Map<String, dynamic> eventMap = jsonDecode(line);
-        CalendarEvent event = CalendarEvent.fromJson(eventMap);
-        print(event.getStartTime());
-        print(event.getEndTime());
-        addEvent(event);
+        // Read the file
+        List<String> contents = file.readAsLinesSync();
+        print("FICHIER : " + file.toString());
+        for (String line in contents) {
+          Map<String, dynamic> eventMap = jsonDecode(line);
+          CalendarEvent event = CalendarEvent.fromJson(eventMap);
+          print(event.getStartTime());
+          print(event.getEndTime());
+          addEvent(event);
+        }
       }
-    /*} catch (e) {
+    } catch (e) {
       print("ERROR OCCURED WHILE READING : " + e.toString());
-    }*/
+    }
   }
 
   void writeEvents() async {
     try {
-      final file = await _localFile;
+      final file = await localFile;
 
       for (CalendarEvent event in appointments) {
         file.writeAsStringSync(event.toJson().toString());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import '../utilities.dart';
 import 'Calendar.dart';
@@ -12,5 +13,10 @@ class SymptomsCalendar extends Calendar {
   @override
   Color getColor(int index) {
     return Colors.red;
+  }
+
+  Future<File> get localFile async {
+    final path = await localPath;
+    return File('$path/symptom_events.json');
   }
 }
