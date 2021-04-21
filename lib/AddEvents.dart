@@ -1,5 +1,6 @@
 import 'package:ma_muco/CalendarEvent.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
+import 'package:ma_muco/Calendars/OccurrenceTime.dart';
 
 import 'utilities.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,9 @@ class AddEvents extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   String _nameEvent;
   DateTime _date;
+  DateTime _dateEnd;
+  OccurrenceTime _occurrence;
+  int _repetition;
   String _details;
   MeetingsCalendar _calendar;
 
@@ -31,9 +35,11 @@ class AddEvents extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget> [
 
-                getTextInputZone(language.getNameEvent(), setStrNameEvent, "Please enter some text"),
-                getTextInputZone(language.getDate(), setStrDayEvent, "Date format : YYYY:MM:DD:HH:MM"),
-                getTextInputZone(language.getDetails(), setStrDetailsEvent, "Please enter some text"),
+                getTextInputZone(language.getNameEvent(), setStrNameEvent, language.getPleaseEnterSomeText()),
+                getTextInputZone(language.getDate(), setStrDayEvent, language.getDateFormat()),
+                getTextInputZone(language.getDateEnd(), setStrDayEndEvent, language.getDateFormat()),
+                getTextInputZone(language.getOccurrence(), setStrOccurrenceEvent, language.getOccurrenceFormat()),
+                getTextInputZone(language.getDetails(), setStrDetailsEvent, language.getPleaseEnterSomeText()),
 
                 ElevatedButton(
                   style: ButtonStyle(
@@ -45,10 +51,11 @@ class AddEvents extends StatelessWidget {
                       CalendarEvent newEvent = CalendarEvent();
                       newEvent.setTitle(_nameEvent);
                       newEvent.setInfos(_details);
-                      newEvent.setTimes(_date, _date.add(Duration(hours: 1)));
+                      newEvent.setTimes(_date, _dateEnd);
+                      newEvent.setOccurrence(_occurrence);
+                      newEvent.setRepetition(_repetition);
                       _calendar.addEvent(newEvent);
-                      print("ADD EVENT TO CALENDAR : " + _nameEvent + " / " +
-                          _date.toString() + " / " + _details);
+                      //print("ADD EVENT TO CALENDAR : " + _nameEvent + " / " + _date.toString() + " / " + _details + " / " + _occurrence.toString() + " / " + _repetition.toString());
                       _calendar.writeEvents();
                     }
                   },
@@ -95,6 +102,30 @@ class AddEvents extends StatelessWidget {
     if (_date != null)
       return true;
 
+    return false;
+  }
+
+  bool setStrDayEndEvent(String date) {
+    _dateEnd = stringToDateTime(date);
+    if (_dateEnd != null)
+      return true;
+
+    return false;
+  }
+
+  bool setStrOccurrenceEvent(String occurrence) {
+    if (occurrence.length > 11) {
+      _occurrence = OccurrenceTime.fromString(occurrence.substring(0, 10));
+      _repetition = int.parse(occurrence.substring(11, occurrence.length));
+      if (_occurrence != null)
+        return true;
+    }
+    else if (occurrence.length == 0) {
+      _occurrence = OccurrenceTime();
+      _repetition = 0;
+      if (_occurrence != null)
+        return true;
+    }
     return false;
   }
 

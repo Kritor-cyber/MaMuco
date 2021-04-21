@@ -23,8 +23,13 @@ abstract class Internationalization {
 	//Add Events
 	String getNameEvent();
 	String getDate();
+	String getDateEnd();
+	String getOccurrence();
 	String getDetails();
 	String getValidate();
+	String getPleaseEnterSomeText();
+	String getDateFormat();
+	String getOccurrenceFormat();
 }
 
 class LanguageFr extends Internationalization {
@@ -110,9 +115,19 @@ class LanguageFr extends Internationalization {
 	@override
 	String getDate(){ return 'Date';}
 	@override
-	String getDetails() {return 'Details'; }
+	String getDateEnd() { return 'Date de Fin'; }
+	@override
+	String getOccurrence() { return 'Récurrence'; }
+	@override
+	String getDetails() {return 'Détails'; }
 	@override
 	String getValidate() {return 'Validation';}
+	@override
+	String getPleaseEnterSomeText() { return 'Veuillez entrer du texte...'; }
+	@override
+	String getDateFormat() { return 'Format de la date : AAAA:MM:JJ:HH:MM'; }
+	@override
+	String getOccurrenceFormat() { return 'Tous les : AAAA:MM:JJ T (T fois)'; }
 }
 
 class LanguageEn extends Internationalization {
@@ -199,7 +214,17 @@ class LanguageEn extends Internationalization {
 	@override
 	String getDate(){ return 'Date';}
 	@override
+	String getDateEnd() { return 'End Date'; }
+	@override
+	String getOccurrence() { return 'Occurrence'; }
+	@override
 	String getDetails() {return 'Details'; }
 	@override
 	String getValidate() {return 'Validation';}
+	@override
+	String getPleaseEnterSomeText() { return 'Please enter some text...'; }
+	@override
+	String getDateFormat() { return 'Date format : YYYY:MM:DD:HH:MM'; }
+	@override
+	String getOccurrenceFormat() { return 'Each : YYYY:MM:DD T (T times)'; }
 }

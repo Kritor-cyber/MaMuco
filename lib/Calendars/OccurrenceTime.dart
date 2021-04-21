@@ -9,8 +9,8 @@ class OccurrenceTime {
     if (data.length == 10)
     {
       year = int.parse(data.substring(0, 4));
-      month = int.parse(data.substring(5, 7));
-      day = int.parse(data.substring(8, 10));
+      month = int.parse(data.substring(6, 7));
+      day = int.parse(data.substring(9, 10));
     }
   }
 
