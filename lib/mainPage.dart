@@ -4,6 +4,7 @@ import 'package:ma_muco/Calendars/CalendarWidget.dart';
 import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
 import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
+import 'package:ma_muco/WeightGraph.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
@@ -118,6 +119,23 @@ class mainPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(language.getAppName()),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text(language.getWeightGraph()),
+              leading: Image (image: AssetImage("assets/graph.png")),
+              onTap: () {
+                Navigator.push( context, MaterialPageRoute(builder: (context) => WeightGraph()));
+              },
+            ),
+            ListTile(
+              title: Text('Page 2'),
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 10),

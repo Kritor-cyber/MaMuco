@@ -19,6 +19,9 @@ abstract class Internationalization {
 	String getCalendarButtonToolTip();
 	String getSymptomButtonToolTip();
 	String getDrugsButtonToolTip();
+
+	//WeightGraph
+	String getWeightGraph ();
 }
 
 class LanguageFr extends Internationalization {
@@ -97,6 +100,10 @@ class LanguageFr extends Internationalization {
 	String getSymptomButtonToolTip() { return "Accès rapide au calendrier des symptômes"; }
 	@override
 	String getDrugsButtonToolTip() { return "Accès rapide au calendrier des médicaments"; }
+
+	//Weight Graph
+	@override
+	String getWeightGraph () {return "Graphique de poids";}
 }
 
 class LanguageEn extends Internationalization {
@@ -176,4 +183,7 @@ class LanguageEn extends Internationalization {
 	String getSymptomButtonToolTip() { return "Fast access to symptoms' calendar"; }
 	@override
 	String getDrugsButtonToolTip() { return "Fast access to drugs' calendar"; }
+
+	//Weight Graph
+	String getWeightGraph () {return "Weight graph"; }
 }
