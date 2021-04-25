@@ -113,55 +113,6 @@ class mainPage extends StatelessWidget {
     /** END */
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(language.getAppName()),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text(language.getWeightGraph()),
-              leading: Image (image: AssetImage("assets/graph.png")),
-              onTap: () {
-                Navigator.push( context, MaterialPageRoute(builder: (context) => WeightGraph()));
-              },
-            ),
-            ListTile(
-              title: Text('Page 2'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-                children: [
-                  info.getWidget(),
-                  info2.getWidget(),
-                ]
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                getAddingBarEvents(context),
-                getAddingBarSymptoms(context),
-              ],
-            ),
-            getFastAccessBar(context),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget getFastAccessBar(BuildContext context) {
     return Container(
       child: Row(
@@ -230,4 +181,56 @@ class mainPage extends StatelessWidget {
       child: Text(language.getAddEvents()),
     );
   }
+
+  ListTile getMenu (BuildContext context, Text title, Image asset, MaterialPageRoute route ) {
+    return ListTile(
+      title: title,
+      leading: asset,
+        onTap: () {
+          Navigator.push(context, route);
+        },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(language.getAppName()),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            getMenu(context, Text(language.getWeightGraph()), Image(image: AssetImage("assets/graph.png")), MaterialPageRoute(builder: (context) => WeightGraph())),
+            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(symptomsCalendar))),
+            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(drugsCalendar))),
+            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(meetingsCalendar))),
+          ],
+        ),
+      ),
+      body: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+                children: [
+                  info.getWidget(),
+                  info2.getWidget(),
+                ]
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                getAddingBarEvents(context),
+                getAddingBarSymptoms(context),
+              ],
+            ),
+            getFastAccessBar(context),
+          ],
+        ),
+      ),
+    );
+  }
 }
+

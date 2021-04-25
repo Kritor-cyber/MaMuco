@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 abstract class Internationalization {
 
 
@@ -22,6 +24,9 @@ abstract class Internationalization {
 
 	//WeightGraph
 	String getWeightGraph ();
+	String getSymptomCalendar ();
+	String getDrugsCalendar();
+	String getMeetingCalendar();
 }
 
 class LanguageFr extends Internationalization {
@@ -104,6 +109,12 @@ class LanguageFr extends Internationalization {
 	//Weight Graph
 	@override
 	String getWeightGraph () {return "Graphique de poids";}
+	@override
+	String getSymptomCalendar () {return "Calendrier des Symptomes";}
+	@override
+	String getDrugsCalendar() {return "Calendrier des médicaments";}
+	@override
+	String getMeetingCalendar() { return "Calendrier des rendez-vous";}
 }
 
 class LanguageEn extends Internationalization {
@@ -162,6 +173,7 @@ class LanguageEn extends Internationalization {
 		else
 			return "Invalid month number: " + number.toString();
 	}
+	@override
 	String getMonthly() { return "MONTHLY"; }
 
 	// Fast adding buttons
@@ -185,5 +197,13 @@ class LanguageEn extends Internationalization {
 	String getDrugsButtonToolTip() { return "Fast access to drugs' calendar"; }
 
 	//Weight Graph
+	@override
 	String getWeightGraph () {return "Weight graph"; }
+	@override
+	String getSymptomCalendar () {return "Symptoms calendar";}
+	@override
+	String getDrugsCalendar() {return "Drugs calendar";}
+	@override
+	String getMeetingCalendar() { return "Meeting calendar";}
+
 }
