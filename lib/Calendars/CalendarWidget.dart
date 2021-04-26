@@ -31,8 +31,7 @@ class _CalendarWidget extends State<CalendarWidget> {
         if (widget.initialOffset == -1)
           widget.initialOffset = widget._calendarViewer.offset;
 
-        if (widget.initialOffset - widget._calendarViewer.offset >
-            0.75 * widget.initialOffset) {
+        if (widget.initialOffset - widget._calendarViewer.offset > 0.75 * widget.initialOffset) {
           widget._calendarViewer
               .jumpTo(widget.initialOffset + widget._calendarViewer.offset);
           widget.dateToShow = subtractOneMonth(widget.dateToShow);
@@ -266,9 +265,9 @@ class _CalendarWidget extends State<CalendarWidget> {
       contentPadding: EdgeInsets.all(5),
       leading: Column(
         children: [
-          Text(isSameDay(event.getStartTime(), widget.dateToShow) ? event.getStartHourString() : isSameMonth(event.getStartTime(), widget.dateToShow) ? language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " " + event.getStartHourString() : language.getMonth(event.getStartTime().month) + "/" + language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " "  + event.getStartHourString()),
+          Text(event.isStartTimeTheSameDay(widget.dateToShow) ? event.getStartHourString() : event.isStartTimeTheSameMonth(widget.dateToShow) ? language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " " + event.getStartHourString() : language.getMonth(event.getStartTime().month) + "/" + language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " "  + event.getStartHourString()),
           Text("-"),
-          Text(isSameDay(event.getEndTime(), widget.dateToShow) ? event.getEndHourString() : isSameMonth(event.getEndTime(), widget.dateToShow) ? language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " "  + event.getEndHourString() : language.getMonth(event.getEndTime().month) + "/" + language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " "  + event.getEndHourString()),
+          Text(event.isEndTimeTheSameDay(widget.dateToShow) ? event.getEndHourString() : event.isEndTimeTheSameMonth(widget.dateToShow) ? language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " " + event.getEndHourString() : language.getMonth(event.getEndTime().month) + "/" + language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " "  + event.getEndHourString()),
         ],
       ),
       title: Container(

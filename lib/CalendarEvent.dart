@@ -179,4 +179,128 @@ class CalendarEvent {
     time = DateTime(time.year, time.month, time.day - getOccurrence().day * occurrence);
     return isTheSameMonthOccurrence(time, occurrence) && (time.day >= startTime.day && time.day <= endTime.day);
   }
+
+  /// Return true if the start of the event and time are the same day
+  bool isStartTimeTheSameDay(DateTime time) {
+
+    if (occurrence.isNull()) {
+      if (time.year == startTime.year && time.month == startTime.month && time.day == startTime.day) {
+        return true;
+      }
+      else {
+        if (time.year == startTime.year && time.month == startTime.month && time.day == startTime.day) {
+          return true;
+        }
+        else
+          return _isStartTimeTheSameDayOccurrence(time, 0);
+      }
+    }
+
+    bool sameDay = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameDay |= _isStartTimeTheSameDayOccurrence(time, i);
+    }
+
+    return sameDay;
+  }
+
+  bool _isStartTimeTheSameDayOccurrence(DateTime time, int currentOcc) {
+    time = DateTime(time.year, time.month, time.day - occurrence.day * currentOcc);
+    return _isStartTimeTheSameMonthOccurrence(time, currentOcc) && (time.day == startTime.day);
+  }
+
+  bool isStartTimeTheSameMonth(DateTime time) {
+
+    if (occurrence.isNull()) {
+      if (time.year == startTime.year && time.month == startTime.month) {
+        return true;
+      }
+      else {
+        if (time.year == startTime.year && time.month == startTime.month) {
+          return true;
+        }
+        else
+          return _isStartTimeTheSameMonthOccurrence(time, 0);
+      }
+    }
+
+    bool sameMonth = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameMonth |= _isStartTimeTheSameMonthOccurrence(time, i);
+    }
+
+    return sameMonth;
+  }
+
+  bool _isStartTimeTheSameMonthOccurrence(DateTime time, int currentOcc) {
+    time = DateTime(time.year, time.month - occurrence.month * currentOcc, time.day);
+    return _isStartTimeTheSameYearOccurrence(time, currentOcc) && (time.month == startTime.month);
+  }
+
+  bool _isStartTimeTheSameYearOccurrence(DateTime time, int currentOcc) {
+    time = DateTime(time.year - occurrence.year * currentOcc, time.month, time.day);
+    return time.year == startTime.year;
+  }
+
+  /// Return true if the end of the event and time are the same day
+  bool isEndTimeTheSameDay(DateTime time) {
+
+    if (occurrence.isNull()) {
+      if (time.year == endTime.year && time.month == endTime.month && time.day == endTime.day) {
+        return true;
+      }
+      else {
+        if (time.year == endTime.year && time.month == endTime.month && time.day == endTime.day) {
+          return true;
+        }
+        else
+          return _isEndTimeTheSameDayOccurrence(time, 0);
+      }
+    }
+
+    bool sameDay = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameDay |= _isEndTimeTheSameDayOccurrence(time, i);
+    }
+
+    return sameDay;
+  }
+
+  bool _isEndTimeTheSameDayOccurrence(DateTime time, int currentOcc) {
+    time = DateTime(time.year, time.month, time.day - occurrence.day * currentOcc);
+    return _isEndTimeTheSameMonthOccurrence(time, currentOcc) && (time.day == endTime.day);
+  }
+
+  bool isEndTimeTheSameMonth(DateTime time) {
+
+    if (occurrence.isNull()) {
+      if (time.year == endTime.year && time.month == endTime.month) {
+        return true;
+      }
+      else {
+        if (time.year == endTime.year && time.month == endTime.month) {
+          return true;
+        }
+        else
+          return _isEndTimeTheSameMonthOccurrence(time, 0);
+      }
+    }
+
+    bool sameMonth = false;
+    for (int i = 0; i < getRepetition(); i++) {
+      sameMonth |= _isEndTimeTheSameMonthOccurrence(time, i);
+    }
+
+    return sameMonth;
+  }
+
+  bool _isEndTimeTheSameMonthOccurrence(DateTime time, int currentOcc) {
+    time = DateTime(time.year, time.month - occurrence.month * currentOcc, time.day);
+    return _isEndTimeTheSameYearOccurrence(time, currentOcc) && (time.month == endTime.month);
+  }
+
+  bool _isEndTimeTheSameYearOccurrence(DateTime time, int currentOcc) {
+    time = DateTime(time.year - occurrence.year * currentOcc, time.month, time.day);
+    return time.year == endTime.year;
+  }
 }
