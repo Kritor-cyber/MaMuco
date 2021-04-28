@@ -70,13 +70,28 @@ class _CalendarWidget extends State<CalendarWidget> {
         title: Text(widget.calendar.getTitle() + " - " + language.getMonthly()),
       ),
       body: Scaffold(
-        body: PageView(
-          controller: widget._calendarViewer,
-          scrollDirection: Axis.horizontal,
+        body: Stack(
           children: [
-            widget.prevMonth,
-            widget.actualMonth,
-            widget.nextMonth,
+            PageView(
+              controller: widget._calendarViewer,
+              scrollDirection: Axis.horizontal,
+              children: [
+                widget.prevMonth,
+                widget.actualMonth,
+                widget.nextMonth,
+              ],
+            ),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Color.fromARGB(200, 127, 127, 127),
+              ),
+            ),
           ],
         ),
       ),
