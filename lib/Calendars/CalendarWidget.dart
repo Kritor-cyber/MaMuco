@@ -131,22 +131,6 @@ class _CalendarWidget extends State<CalendarWidget> {
     );
   }
 
-  List<Widget> getDayListText() {
-    List<Widget> days = [];
-
-    for (int i = 1; i <= 7; i++) {
-      days.add(Expanded(
-        flex: 1,
-        child: Text(
-          language.getDay(i).substring(0, 3),
-          textAlign: TextAlign.center,
-        ),
-      ));
-    }
-
-    return days;
-  }
-
   Widget getAllMonthDays(int year, int month) {
     return Column(
       mainAxisSize: MainAxisSize.min,

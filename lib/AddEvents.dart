@@ -1,6 +1,7 @@
 import 'package:ma_muco/CalendarEvent.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
 import 'package:ma_muco/Calendars/OccurrenceTime.dart';
+import 'package:ma_muco/DateSelector.dart';
 
 import 'utilities.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,41 +82,7 @@ class _AddEvents extends State<AddEvents> {
 
             /// Widget to contain a selector
             Visibility(
-              child: Positioned(
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Color.fromARGB(200, 127, 127, 127),
-                  child: Center(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      color: Colors.white,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                DateTime.now().year.toString() + " - " + language.getMonth(DateTime.now().month),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text("Et ici il y aura les jours"),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              child: DateSelector(),
               visible: widget._selectingData,
             ),
           ],

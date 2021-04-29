@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'internationalization.dart';
 
 Internationalization language;
@@ -68,4 +70,39 @@ bool isSameMonth(DateTime date1, DateTime date2) {
 
 bool isSameDay(DateTime date1, DateTime date2) {
     return isSameMonth(date1, date2) && date1.day == date2.day;
+}
+
+List<Widget> getDayListText() {
+    List<Widget> days = [];
+
+    for (int i = 1; i <= 7; i++) {
+        days.add(Expanded(
+            flex: 1,
+            child: Text(
+                language.getDay(i).substring(0, 3),
+                textAlign: TextAlign.center,
+            ),
+        ));
+    }
+
+    return days;
+}
+
+List<Widget> getDayListTextSmall() {
+    List<Widget> days = [];
+
+    for (int i = 1; i <= 7; i++) {
+        days.add(Container(
+            padding: EdgeInsets.all(3),
+            child: Text(
+                language.getDay(i).substring(0, 3),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    decoration: TextDecoration.underline,
+                ),
+            ),
+        ));
+    }
+
+    return days;
 }
