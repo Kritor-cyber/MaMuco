@@ -4,12 +4,18 @@ import 'package:ma_muco/utilities.dart';
 
 class DateSelector extends StatefulWidget {
 
+  Function DateSelectedFunction = null;
   DateTime dateSelected = DateTime.now();
 
+  DateSelector(Function userSelectDate)
+  {
+    DateSelectedFunction = userSelectDate;
+  }
   _DateSelector createState() => _DateSelector();
 }
 
 class _DateSelector extends State<DateSelector> {
+
   @override
   Widget build(BuildContext context) {
     
@@ -46,6 +52,7 @@ class _DateSelector extends State<DateSelector> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: getAllMonthDays(widget.dateSelected),
                 ),
+                ElevatedButton(onPressed: () { print(widget.dateSelected); widget.DateSelectedFunction(widget.dateSelected); } , child: Text("Ok")),
               ],
             ),
           ),

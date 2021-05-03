@@ -81,6 +81,7 @@ class _CalendarWidget extends State<CalendarWidget> {
                 widget.nextMonth,
               ],
             ),
+            /* Affichage supperposé
             Positioned(
               top: 0,
               bottom: 0,
@@ -91,7 +92,7 @@ class _CalendarWidget extends State<CalendarWidget> {
                 height: double.infinity,
                 color: Color.fromARGB(200, 127, 127, 127),
               ),
-            ),
+            ),*/
           ],
         ),
       ),

@@ -108,7 +108,7 @@ abstract class Calendar extends CalendarDataSource {
     int id = 0;
 
     for (CalendarEvent event in appointments) {
-      if (event.getOccurrence().isNull()) {
+      if (event.getOccurrence().isNull() || (event.getOccurrence().year == 0 && event.getOccurrence().month == 0 && event.getOccurrence().day == 0 && event.getRepetition() == 0)) {
         if (date.year < event.getEndTime().year)
           return id;
         else if (date.year == event.getEndTime().year){
@@ -127,11 +127,19 @@ abstract class Calendar extends CalendarDataSource {
         for (int i = 0; i < event.getRepetition(); i++)
         {
           tmp = DateTime(date.year - event.getOccurrence().year * i, date.month - event.getOccurrence().month * i, date.day - event.getOccurrence().day * i);
-          if (tmp.year < event.getEndTime().year)
-            return id;
-          else if (tmp.year == event.getEndTime().year){
-            if (tmp.month < event.getEndTime().month)
+          if (tmp.year < event.getEndTime().year) {
+            if (tmp.isBefore(appointments[id+1].getStartTime()))
               return id;
+            else
+              i = event.getRepetition();  /// Stoping for loop because it became useless to continue
+          }
+          else if (tmp.year == event.getEndTime().year){
+            if (tmp.month < event.getEndTime().month) {
+              if (tmp.isBefore(appointments[id+1].getStartTime()))
+                return id;
+              else
+                i = event.getRepetition();  /// Stoping for loop because it became useless to continue
+            }
             else if (tmp.month == event.getEndTime().month) {
               if (tmp.day <= event.getEndTime().day) {
                 return id;
