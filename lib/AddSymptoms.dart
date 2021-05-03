@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ma_muco/AddLevelsSymptoms.dart';
 
 import 'utilities.dart';
 
 class AddSymptoms extends StatefulWidget {
-  Widget symptomSelection;
+  //Widget symptomSelection;
   bool selectingSymptom = false;
+  AddLevelsSymptoms addLevelsSymptoms = null;
+
 
   @override
   State<StatefulWidget> createState() => _AddSymptoms();
@@ -14,7 +17,7 @@ class AddSymptoms extends StatefulWidget {
 class _AddSymptoms extends State<AddSymptoms> {
   @override
   Widget build(BuildContext context) {
-    widget.symptomSelection = GestureDetector(
+   /* widget.symptomSelection = GestureDetector(
       onTap: () {
         setState(() {
           widget.selectingSymptom = false;
@@ -48,7 +51,7 @@ class _AddSymptoms extends State<AddSymptoms> {
           ],
         ),
       ),
-    );
+    );*/
     return Scaffold(
       appBar: AppBar(
         title: Text(language.getAddSymptoms()),
@@ -65,21 +68,21 @@ class _AddSymptoms extends State<AddSymptoms> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  getSymptomButton("Respiration"),
-                  getSymptomButton("Digestion"),
-                  getSymptomButton("Humeur"),
-                  getSymptomButton("Autre"),
+                  getSymptomButton("Respiration", () {return AddLevelsSymptomsRespiration();}),
+                  getSymptomButton("Digestion",(){return AddLevelsSymptomsDigestion();}),
+                  getSymptomButton("Humeur",() {return AddLevelsSymptomsMood();}),
+                  getSymptomButton("Autre",() {return AddLevelsSymptomsOther();}),
                 ],
               ),
             ),
-            widget.selectingSymptom ? widget.symptomSelection : Container(),
+            widget.selectingSymptom ? widget.addLevelsSymptoms : Container(),
           ],
         ),
       ),
     );
   }
 
-  ListTile getListZone(Text title, Color color, Text subtitle, Image asset) {
+  /*ListTile getListZone(Text title, Color color, Text subtitle, Image asset) {
     return ListTile(
       title: title,
       tileColor: color,
@@ -92,14 +95,15 @@ class _AddSymptoms extends State<AddSymptoms> {
         });
       },
     );
-  }
+  }*/
 
-  TextButton getSymptomButton (String label) {
+  TextButton getSymptomButton (String label,Function createAddLevelsSymptoms) {
     return TextButton.icon (
       onPressed: () {
-      setState(() {
-        widget.selectingSymptom = true;
-      });
+       setState(() {
+         widget.addLevelsSymptoms = createAddLevelsSymptoms();
+         widget.selectingSymptom = true;
+       });
     },
       icon: Icon(Icons.add, size: 30),
       label: Text(label,style: TextStyle(fontSize: 30) ),
