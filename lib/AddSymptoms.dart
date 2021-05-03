@@ -22,12 +22,13 @@ class _AddSymptoms extends State<AddSymptoms> {
       },
       child: Container(
         padding: EdgeInsets.all(25),
-        color: Color.fromARGB(138, 217, 0, 255),
+        color: Colors.white,
         child: Flex(
           direction: Axis.horizontal,
           children: [
             Expanded(
               child: Column(
+
                 children: [
                   Text("Choississez le symptôme à ajouter :"),
                   Container(
@@ -53,28 +54,21 @@ class _AddSymptoms extends State<AddSymptoms> {
         title: Text(language.getAddSymptoms()),
       ),
       body: Container(
-        color: Colors.red,
+        color: Colors.white,
         child: Stack(
           children: [
             Positioned(
               left: 0,
               right: 0,
+              top: 0,
+              bottom: 0,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.selectingSymptom = true;
-                      });
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
-                    ),
-                    child: Text("LIST"),
-                  ),
-                  Text("ICONE de gravite"),
-                  Text("VALIDATION"),
+                  getSymptomButton("Respiration"),
+                  getSymptomButton("Digestion"),
+                  getSymptomButton("Humeur"),
+                  getSymptomButton("Autre"),
                 ],
               ),
             ),
@@ -97,6 +91,24 @@ class _AddSymptoms extends State<AddSymptoms> {
           widget.selectingSymptom = false;
         });
       },
+    );
+  }
+
+  TextButton getSymptomButton (String label) {
+    return TextButton.icon (
+      onPressed: () {
+      setState(() {
+        widget.selectingSymptom = true;
+      });
+    },
+      icon: Icon(Icons.add, size: 30),
+      label: Text(label,style: TextStyle(fontSize: 30) ),
+      style: TextButton.styleFrom(
+        minimumSize: Size(300, 0),
+        primary: Colors.blue,
+        side: BorderSide(color: Colors.blue, width: 2),
+        padding: EdgeInsets.only(top:10, bottom: 10),
+    ),
     );
   }
 }
