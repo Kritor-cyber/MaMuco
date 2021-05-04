@@ -1,10 +1,8 @@
 import 'package:ma_muco/CalendarEvent.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
 import 'package:ma_muco/Calendars/OccurrenceTime.dart';
-import 'package:ma_muco/DateSelector.dart';
 
 import 'utilities.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddEvents extends StatefulWidget {
@@ -16,8 +14,6 @@ class AddEvents extends StatefulWidget {
   int _repetition;
   String _details;
   MeetingsCalendar _calendar;
-  bool _selectingData = false;
-  bool _selectingStartDate = true;
 
   AddEvents(this._calendar);
 
@@ -44,8 +40,7 @@ class _AddEvents extends State<AddEvents> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       getTextInputZone(language.getNameEvent(), setStrNameEvent, language.getPleaseEnterSomeText()),
-                      getDateInputZone(widget._date, setStrDayEvent, language.getDateFormat(), true),
-                      getDateInputZone(widget._dateEnd, setStrDayEndEvent, language.getDateFormat(), false),
+                      getDateInputZone(widget._date, setDateRange, language.getDateFormat()),
                       getTextInputZone(language.getOccurrence(), setStrOccurrenceEvent, language.getOccurrenceFormat()),
                       getTextInputZone(language.getDetails(), setStrDetailsEvent, language.getPleaseEnterSomeText()),
                       ElevatedButton(
@@ -64,7 +59,7 @@ class _AddEvents extends State<AddEvents> {
                             newEvent.setOccurrence(widget._occurrence);
                             newEvent.setRepetition(widget._repetition);
                             widget._calendar.addEvent(newEvent);
-                            //print("ADD EVENT TO CALENDAR : " + widget._nameEvent + " / " + widget._date.toString() + " / " + widget._details + " / " + widget._occurrence.toString() + " / " + widget._repetition.toString());
+                            print("ADD EVENT TO CALENDAR : " + widget._nameEvent + " / " + widget._date.toString() + " / " + widget._details + " / " + widget._occurrence.toString() + " / " + widget._repetition.toString());
                             widget._calendar.writeEvents();
                           }
                         },
@@ -78,23 +73,6 @@ class _AddEvents extends State<AddEvents> {
                 ),
               ),
             ),
-
-            /// Widget to contain a selector
-            Visibility(
-              child: DateSelector((DateTime time) {
-                print(time);
-                setState(() {
-                  if (widget._selectingStartDate)
-                    widget._date = time;
-                  else
-                    widget._dateEnd = time;
-
-                  widget._selectingData = false;
-                  ///widget._dateEditingController.value.copyWith(text: "test");
-                });
-              }),
-              visible: widget._selectingData,
-            ),
           ],
         ),
       ),
@@ -106,10 +84,7 @@ class _AddEvents extends State<AddEvents> {
       margin: EdgeInsets.only(bottom: 10),
       child: TextFormField(
         validator: (value) {
-          if (value != null && value.isNotEmpty) {
-            //print(value);
-            if (setValue(value)) return null;
-          }
+          if (setValue(value)) return null;
           return invalidValue;
         },
         decoration: InputDecoration(labelText: label, border: OutlineInputBorder()),
@@ -117,68 +92,83 @@ class _AddEvents extends State<AddEvents> {
     );
   }
 
-  Widget getDateInputZone(DateTime date, Function setValue, String invalidValue, bool isStartDate) {
+  Widget getDateInputZone(DateTime date, Function setValue, String invalidValue) {
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget._selectingStartDate = isStartDate;
-          widget._selectingData = true;
-        });
-      },
-      child: Container(
+
+    TextEditingController controller = TextEditingController(text: "Du " + widget._date.day.toString() + " " + language.getMonth(widget._date.month) + " " + widget._date.year.toString() + " à " + twoDigitInt(widget._date.hour) + ":" +twoDigitInt(widget._date.minute) + " au " + widget._dateEnd.day.toString() + " " + language.getMonth(widget._dateEnd.month) + " " + widget._dateEnd.year.toString() + " à " + twoDigitInt(widget._dateEnd.hour) + ":" +twoDigitInt(widget._dateEnd.minute));
+    return Container(
         margin: EdgeInsets.only(bottom: 10),
-        padding: EdgeInsets.only(top: 20, bottom: 20, left: 15, right: 5),
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.all(Radius.circular(5))),
-        child: Text(
-          date.toString(),
-          style: TextStyle(
-              color: Colors.black, fontSize: 15.5),
-        ),
-      ),
+        child: TextFormField(
+        readOnly: true,
+        controller: controller,
+        decoration: InputDecoration(labelText: "Période de l'évenement", border: OutlineInputBorder()),
+        //decoration: InputDecoration(hintText: "Sélectionnez une date"),
+        onTap: () async {
+          var newDateRange = await showDateRangePicker(context: context, firstDate: DateTime(1900), lastDate: DateTime(2100));
+          if (newDateRange != null)
+          {
+            var timeOfStartDay = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: "Sélectionner l'heure de début : ");
+            if (timeOfStartDay != null)
+            {
+              var timeOfEndDay = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: "Sélectionner l'heure de fin : ");
+              if (setValue(newDateRange, timeOfStartDay, timeOfEndDay))
+              {
+                controller.text = "Du " + widget._date.day.toString() + " " + language.getMonth(widget._date.month) + " " + widget._date.year.toString() + " à " + twoDigitInt(widget._date.hour) + ":" +twoDigitInt(widget._date.minute) + " au " + widget._dateEnd.day.toString() + " " + language.getMonth(widget._dateEnd.month) + " " + widget._dateEnd.year.toString() + " à " + twoDigitInt(widget._dateEnd.hour) + ":" +twoDigitInt(widget._dateEnd.minute);
+              }
+            }
+          }
+        }
+      )
     );
   }
 
   bool setStrNameEvent(String name) {
-    widget._nameEvent = name;
-    return true;
-  }
-
-  bool setStrDayEvent(String date) {
-    widget._date = stringToDateTime(date);
-    if (widget._date != null) return true;
+    if (name != null && name.length > 0) {
+      widget._nameEvent = name;
+      return true;
+    }
 
     return false;
   }
 
-  bool setStrDayEndEvent(String date) {
-    widget._dateEnd = stringToDateTime(date);
-    if (widget._dateEnd != null) return true;
+  bool setDateRange(DateTimeRange dateTimeRange, TimeOfDay timeOfStart, TimeOfDay timeOfEnd)
+  {
+    if (dateTimeRange != null && timeOfStart != null && timeOfEnd != null)
+    {
+      widget._date = dateTimeRange.start;
+      widget._date = widget._date.add(Duration(hours: timeOfStart.hour, minutes: timeOfStart.minute));
+      widget._dateEnd = dateTimeRange.end;
+      widget._dateEnd = widget._dateEnd.add(Duration(hours: timeOfEnd.hour, minutes: timeOfEnd.minute));
+      return true;
+    }
 
     return false;
   }
 
   bool setStrOccurrenceEvent(String occurrence) {
+    if (occurrence == null || occurrence.length == 0) {
+      widget._occurrence = OccurrenceTime();
+      widget._repetition = 0;
+      if (widget._occurrence != null) return true;
+    }
     if (occurrence.length > 11) {
       widget._occurrence =
           OccurrenceTime.fromString(occurrence.substring(0, 10));
       widget._repetition =
           int.parse(occurrence.substring(11, occurrence.length));
       if (widget._occurrence != null) return true;
-    } else if (occurrence.length == 0) {
-      widget._occurrence = OccurrenceTime();
-      widget._repetition = 0;
-      if (widget._occurrence != null) return true;
     }
+
     return false;
   }
 
   bool setStrDetailsEvent(String details) {
-    widget._details = details;
-    return true;
+    if (details != null && details.length > 0) {
+      widget._details = details;
+      return true;
+    }
+
+    return false;
   }
 
   Color getButtonColor(Set<MaterialState> states) {
