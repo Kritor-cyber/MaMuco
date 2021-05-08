@@ -18,9 +18,9 @@ String dateToString(DateTime time) {
     else if (time.year == DateTime.now().year && time.month == DateTime.now().month && time.day == DateTime.now().day+1)
         string += language.getTomorrow();
     else
-        string += twoDigitInt(time.day) + "-" + twoDigitInt(time.month) + "-" + twoDigitInt(time.year);
+        string += twoDigitInt(time.day) + " " + language.getMonth(time.month) + " " + twoDigitInt(time.year);
 
-    string += " à " + hourToString(time);
+    string += " " + language.getAt() + " " + hourToString(time);
 
     return string;
 }

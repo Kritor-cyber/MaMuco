@@ -34,6 +34,8 @@ abstract class Internationalization {
 	String getAskEndingTime();
 	String getAt();
 	String getTo();
+
+	String getNoIncomingEvent();
 }
 
 class LanguageFr extends Internationalization {
@@ -140,6 +142,9 @@ class LanguageFr extends Internationalization {
 	String getAt() { return "à"; }
 	@override
 	String getTo() { return "au"; }
+
+	@override
+	String getNoIncomingEvent() { return "Pas d'événement à venir prochainement"; }
 }
 
 class LanguageEn extends Internationalization {
@@ -247,4 +252,7 @@ class LanguageEn extends Internationalization {
 	String getAt() { return "at"; }
 	@override
 	String getTo() { return "to"; }
+
+	@override
+	String getNoIncomingEvent() { return "No incoming event"; }
 }

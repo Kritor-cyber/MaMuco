@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../CalendarEvent.dart';
+import '../utilities.dart';
 
 class MainInformation {
   List<CalendarEvent> events;
@@ -14,8 +15,31 @@ class MainInformation {
 
   Widget getWidget() {
 
-    if (events == null)
-      return Container();
+    if (events == null) {
+      return Container(
+        //color: Colors.lightGreen,
+        width: double.infinity,
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: Border.all(
+            width: 5,
+            color: Colors.blue,
+          ),
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(20),
+        ),
+
+        child: Text(language.getNoIncomingEvent(),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      );
+    }
 
     List<Widget> list = <Widget>[];
 
@@ -53,7 +77,7 @@ class MainInformation {
             Container(
               width: double.infinity,
               child: Text(    // Date configuration
-                event.getStartTimeString() + " -> " + event.getEndTimeString(),
+                event.getStartTimeString() + " " + language.getTo() + " " + event.getEndTimeString(),
                 textAlign: TextAlign.right,
                 style: TextStyle(
                   fontSize: 13,
