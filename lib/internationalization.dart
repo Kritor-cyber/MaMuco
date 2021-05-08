@@ -30,6 +30,10 @@ abstract class Internationalization {
 	String getPleaseEnterSomeText();
 	String getDateFormat();
 	String getOccurrenceFormat();
+	String getAskStartingTime();
+	String getAskEndingTime();
+	String getAt();
+	String getTo();
 }
 
 class LanguageFr extends Internationalization {
@@ -128,6 +132,14 @@ class LanguageFr extends Internationalization {
 	String getDateFormat() { return 'Format de la date : AAAA:MM:JJ:HH:MM'; }
 	@override
 	String getOccurrenceFormat() { return 'Tous les : AAAA:MM:JJ T (T fois)'; }
+	@override
+	String getAskStartingTime() { return "Sélectionner l'heure de début : "; }
+	@override
+	String getAskEndingTime() { return "Sélectionner l'heure de fin : "; }
+	@override
+	String getAt() { return "à"; }
+	@override
+	String getTo() { return "au"; }
 }
 
 class LanguageEn extends Internationalization {
@@ -224,7 +236,15 @@ class LanguageEn extends Internationalization {
 	@override
 	String getPleaseEnterSomeText() { return 'Please enter some text...'; }
 	@override
-	String getDateFormat() { return 'Date format : YYYY:MM:DD:HH:MM'; }
+	String getDateFormat() { return 'Date format: YYYY:MM:DD:HH:MM'; }
 	@override
-	String getOccurrenceFormat() { return 'Each : YYYY:MM:DD T (T times)'; }
+	String getOccurrenceFormat() { return 'Each: YYYY:MM:DD T (T times)'; }
+	@override
+	String getAskStartingTime() { return "Select start time: "; }
+	@override
+	String getAskEndingTime() { return "Select end time: "; }
+	@override
+	String getAt() { return "at"; }
+	@override
+	String getTo() { return "to"; }
 }

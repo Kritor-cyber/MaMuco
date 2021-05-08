@@ -95,7 +95,7 @@ class _AddEvents extends State<AddEvents> {
   Widget getDateInputZone(DateTime date, Function setValue, String invalidValue) {
 
 
-    TextEditingController controller = TextEditingController(text: "Du " + widget._date.day.toString() + " " + language.getMonth(widget._date.month) + " " + widget._date.year.toString() + " à " + twoDigitInt(widget._date.hour) + ":" +twoDigitInt(widget._date.minute) + " au " + widget._dateEnd.day.toString() + " " + language.getMonth(widget._dateEnd.month) + " " + widget._dateEnd.year.toString() + " à " + twoDigitInt(widget._dateEnd.hour) + ":" +twoDigitInt(widget._dateEnd.minute));
+    TextEditingController controller = TextEditingController(text: widget._date.day.toString() + " " + language.getMonth(widget._date.month) + " " + widget._date.year.toString() +  " " + language.getAt() + " " + twoDigitInt(widget._date.hour) + ":" +twoDigitInt(widget._date.minute) + " " + language.getTo() + " " + widget._dateEnd.day.toString() + " " + language.getMonth(widget._dateEnd.month) + " " + widget._dateEnd.year.toString() +  " " + language.getAt() + " "  + twoDigitInt(widget._dateEnd.hour) + ":" +twoDigitInt(widget._dateEnd.minute));
     return Container(
         margin: EdgeInsets.only(bottom: 10),
         child: TextFormField(
@@ -107,13 +107,13 @@ class _AddEvents extends State<AddEvents> {
           var newDateRange = await showDateRangePicker(context: context, firstDate: DateTime(1900), lastDate: DateTime(2100));
           if (newDateRange != null)
           {
-            var timeOfStartDay = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: "Sélectionner l'heure de début : ");
+            var timeOfStartDay = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: language.getAskStartingTime());
             if (timeOfStartDay != null)
             {
-              var timeOfEndDay = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: "Sélectionner l'heure de fin : ");
+              var timeOfEndDay = await showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: language.getAskEndingTime());
               if (setValue(newDateRange, timeOfStartDay, timeOfEndDay))
               {
-                controller.text = "Du " + widget._date.day.toString() + " " + language.getMonth(widget._date.month) + " " + widget._date.year.toString() + " à " + twoDigitInt(widget._date.hour) + ":" +twoDigitInt(widget._date.minute) + " au " + widget._dateEnd.day.toString() + " " + language.getMonth(widget._dateEnd.month) + " " + widget._dateEnd.year.toString() + " à " + twoDigitInt(widget._dateEnd.hour) + ":" +twoDigitInt(widget._dateEnd.minute);
+                controller.text = widget._date.day.toString() + " " + language.getMonth(widget._date.month) + " " + widget._date.year.toString() + " " + language.getAt() + " " + twoDigitInt(widget._date.hour) + ":" +twoDigitInt(widget._date.minute) + " " + language.getTo() + " " + widget._dateEnd.day.toString() + " " + language.getMonth(widget._dateEnd.month) + " " + widget._dateEnd.year.toString() +  " " + language.getAt() + " "  + twoDigitInt(widget._dateEnd.hour) + ":" +twoDigitInt(widget._dateEnd.minute);
               }
             }
           }
