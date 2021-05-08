@@ -5,6 +5,7 @@ import '../utilities.dart';
 import 'Calendar.dart';
 
 class MeetingsCalendar extends Calendar {
+
   @override
   String getTitle() {
     return language.getCalendarButtonName();
@@ -16,7 +17,7 @@ class MeetingsCalendar extends Calendar {
   }
 
   Future<File> get localFile async {
-    final path = await localPath;
+    String path = await localPath;
     return File('$path/meeting_events.json');
   }
 }

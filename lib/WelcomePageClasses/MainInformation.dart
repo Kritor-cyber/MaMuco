@@ -14,6 +14,9 @@ class MainInformation {
 
   Widget getWidget() {
 
+    if (events == null)
+      return Container();
+
     List<Widget> list = <Widget>[];
 
     for (CalendarEvent event in events) {

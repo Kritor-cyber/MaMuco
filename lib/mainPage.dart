@@ -13,10 +13,10 @@ import 'WelcomePageClasses/MainInformation.dart';
 import 'AddSymptoms.dart';
 import 'AddEvents.dart';
 
-class mainPage extends StatelessWidget {
+class mainPage extends StatefulWidget {
 
-  MainInformation info = MainInformation();
-  MainInformation info2 = MainInformation();
+  MainInformation info;
+  MainInformation info2;
   Calendar meetingsCalendar;
   Calendar symptomsCalendar;
   Calendar drugsCalendar;
@@ -28,7 +28,7 @@ class mainPage extends StatelessWidget {
   mainPage() {
 
     /** Events used to test the draw */
-    list = <CalendarEvent>[];
+    /*list = <CalendarEvent>[];
     list.add(CalendarEvent());
     list.last.setTitle("Prendre médicament");
     list.last.setStartTime(DateTime(2021, 03, 29, 10, 43));
@@ -42,11 +42,16 @@ class mainPage extends StatelessWidget {
     list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
 
     info.setEvents(list);
-    info2.setEvents(list);
+    info2.setEvents(list);*/
+
+
 
     meetingsCalendar = MeetingsCalendar();
     symptomsCalendar = SymptomsCalendar();
     drugsCalendar = DrugsCalendar();
+
+
+
     /*meetingsCalendar = MeetingsCalendar();
     meetingsCalendar.addEvents(list);
 
@@ -71,6 +76,7 @@ class mainPage extends StatelessWidget {
     list.last.setRepetition(7*4); // pendant 28 jours
     symptomsCalendar = SymptomsCalendar();
     symptomsCalendar.addEvents(list);
+
 
 
     list.clear();
@@ -124,7 +130,62 @@ class mainPage extends StatelessWidget {
   }
 
   @override
+  State<StatefulWidget> createState() => _mainPage();
+}
+
+class _mainPage extends State<mainPage> {
+
+
+  @override
   Widget build(BuildContext context) {
+
+    if (widget.info == null)
+    {
+      widget.info = MainInformation();
+      widget.meetingsCalendar.readEvents().then((value) {
+        List<CalendarEvent> list = <CalendarEvent>[];
+        int id = widget.meetingsCalendar.getFirstEventIdFrom(DateTime.now());
+        if (id != -1) {
+          list = <CalendarEvent>[];
+          list.add(widget.meetingsCalendar.getEvent(id));
+          if (widget.meetingsCalendar.getEvent(id + 1) != null)
+            list.add(widget.meetingsCalendar.getEvent(id + 1));
+
+          widget.info.setEvents(list);
+          setState(() { });
+        }
+      });
+    }
+    if (widget.info2 == null)
+    {
+      widget.info2 = MainInformation();
+      widget.drugsCalendar.readEvents().then((value) {
+        List<CalendarEvent> list = <CalendarEvent>[];
+        int id = widget.drugsCalendar.getFirstEventIdFrom(DateTime.now());
+        if (id != -1) {
+          list = <CalendarEvent>[];
+          list.add(widget.drugsCalendar.getEvent(id));
+          if (widget.drugsCalendar.getEvent(id + 1) != null)
+            list.add(widget.drugsCalendar.getEvent(id + 1));
+
+          widget.info2.setEvents(list);
+          setState(() { });
+        }
+      });
+      /*
+
+
+      list.clear();
+      id = drugsCalendar.getFirstEventIdFrom(DateTime.now());
+      if (id != -1) {
+        list = <CalendarEvent>[];
+        list.add(drugsCalendar.getEvent(id));
+        if (drugsCalendar.getEvent(id + 1) != null)
+          list.add(drugsCalendar.getEvent(id + 1));
+
+        info2.setEvents(list);
+      }*/
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -137,8 +198,8 @@ class mainPage extends StatelessWidget {
           children: [
             Column(
                 children: [
-                  info.getWidget(),
-                  info2.getWidget(),
+                  widget.info == null ? Container() : widget.info.getWidget(),
+                  widget.info2 == null ? Container() : widget.info2.getWidget(),
                 ]
             ),
             Row(
@@ -160,9 +221,9 @@ class mainPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), meetingsCalendar),
-          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), symptomsCalendar),
-          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), drugsCalendar),
+          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), widget.meetingsCalendar),
+          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), widget.symptomsCalendar),
+          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), widget.drugsCalendar),
         ],
       ),
     );
@@ -215,7 +276,7 @@ class mainPage extends StatelessWidget {
   Widget getAddingBarEvents (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents(meetingsCalendar)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents(widget.meetingsCalendar)));
       },
       style : ButtonStyle (
         backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),

@@ -13,7 +13,6 @@ abstract class Calendar extends CalendarDataSource {
 
   Calendar() {
     appointments = <CalendarEvent>[];
-    readEvents();
   }
 
   /// Gestion des fichiers
@@ -25,9 +24,10 @@ abstract class Calendar extends CalendarDataSource {
 
    Future<File> get localFile;
 
-  void readEvents() async {
+  Future<void> readEvents() async {
     try {
-      final file = await localFile;
+      File file = await localFile;
+
       if (file.existsSync()) {
         //final file = await localFile;
 

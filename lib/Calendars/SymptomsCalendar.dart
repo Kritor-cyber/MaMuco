@@ -5,6 +5,7 @@ import '../utilities.dart';
 import 'Calendar.dart';
 
 class SymptomsCalendar extends Calendar {
+
   @override
   String getTitle() {
     return language.getSymptomButtonName();
@@ -16,7 +17,7 @@ class SymptomsCalendar extends Calendar {
   }
 
   Future<File> get localFile async {
-    final path = await localPath;
+    String path = await localPath;
     return File('$path/symptom_events.json');
   }
 }
