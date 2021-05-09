@@ -28,6 +28,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
+  path_provider: ^2.0.1
   syncfusion_flutter_calendar: ^18.4.49
   syncfusion_localizations: ^18.4.49
 
