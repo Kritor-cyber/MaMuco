@@ -63,6 +63,7 @@ flutter:
     - assets/calendar-event-fill.png
     - assets/calendar-x-fill.png
     - assets/calendar2-check-fill.png
+    - assets/graph.png
     - assets/lung.png
     - assets/heart.png
     - assets/medic.png

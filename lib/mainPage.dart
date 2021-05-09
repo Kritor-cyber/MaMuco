@@ -4,6 +4,7 @@ import 'package:ma_muco/Calendars/CalendarWidget.dart';
 import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
 import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
+import 'package:ma_muco/WeightGraph.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
@@ -137,6 +138,16 @@ class mainPage extends StatefulWidget {
 class _mainPage extends State<mainPage> {
 
 
+  ListTile getMenu (BuildContext context, Text title, Image asset, MaterialPageRoute route ) {
+    return ListTile(
+      title: title,
+      leading: asset,
+        onTap: () {
+          Navigator.push(context, route);
+        },
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
 
@@ -191,6 +202,16 @@ class _mainPage extends State<mainPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(language.getAppName()),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            getMenu(context, Text(language.getWeightGraph()), Image(image: AssetImage("assets/graph.png")), MaterialPageRoute(builder: (context) => WeightGraph())),
+            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(symptomsCalendar))),
+            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(drugsCalendar))),
+            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(meetingsCalendar))),
+          ],
+        ),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 10),
@@ -286,3 +307,4 @@ class _mainPage extends State<mainPage> {
     );
   }
 }
+
