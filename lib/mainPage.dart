@@ -48,6 +48,7 @@ class mainPage extends StatefulWidget {
 
     meetingsCalendar = MeetingsCalendar();
     symptomsCalendar = SymptomsCalendar();
+    symptomsCalendar.readEvents();
     drugsCalendar = DrugsCalendar();
 
 
@@ -262,7 +263,7 @@ class _mainPage extends State<mainPage> {
   Widget getAddingBarSymptoms (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms(symptomsCalendar)
+        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms(widget.symptomsCalendar)
         ),
         );
       },

@@ -9,7 +9,7 @@ abstract class AddLevelsSymptoms extends StatelessWidget {
   Calendar calendar;
   AddLevelsSymptoms (Calendar calendar){this.calendar=calendar;}
   Widget build(BuildContext context) {
-    Form zoneTexte = getInputText();
+    Form zoneTexte = getInputText(context);
     List<String> proposition;
     List<Color> color;
     List<String> subtitle;
@@ -66,7 +66,7 @@ abstract class AddLevelsSymptoms extends StatelessWidget {
     return ["assets/cross.png"];
   }
 
-  Form getInputText() {
+  Form getInputText(BuildContext context) {
     return null;
   }
 
@@ -89,7 +89,7 @@ abstract class AddLevelsSymptoms extends StatelessWidget {
               newEvent.setRepetition(0);
               print(getSymptomTitle()+"/" + title.data);
               calendar.addEvent(newEvent);
-              //calendar.writeEvents();
+              calendar.writeEvents();
             }
             else {
               print("Evenement non ajouté aucune durée ajoutée");
@@ -220,7 +220,7 @@ class AddLevelsSymptomsMood extends AddLevelsSymptoms {
 class AddLevelsSymptomsOther extends AddLevelsSymptoms {
   AddLevelsSymptomsOther(Calendar calendar) : super(calendar);
   String getSymptomTitle () {return ("Autre");}
-  Form getInputText() {
+  Form getInputText(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     String textEntree = "";
     return Form(
@@ -235,9 +235,24 @@ class AddLevelsSymptomsOther extends AddLevelsSymptoms {
             return null;
           }),
           ElevatedButton(
-              onPressed: () {
+              onPressed: () async{
                 if (formKey.currentState.validate()) {
                   print("valeur entrée " + textEntree);
+                  var duration = await showTimePicker(context: context,
+                      initialTime: TimeOfDay(hour: 0, minute: 5),
+                      helpText: "sélectionner la durée du symptome");
+                  if (duration != null) {
+                    CalendarEvent newEvent = CalendarEvent();
+                    newEvent.setTitle(getSymptomTitle());
+                    newEvent.setInfos(textEntree);
+                    newEvent.setTimes(DateTime.now(), DateTime.now().add(
+                        Duration(
+                            hours: duration.hour, minutes: duration.minute)));
+                    newEvent.setRepetition(0);
+                    print(getSymptomTitle() + "/" + textEntree);
+                    calendar.addEvent(newEvent);
+                    calendar.writeEvents();
+                  }
                 }
               },
               child: Text("valider")),
