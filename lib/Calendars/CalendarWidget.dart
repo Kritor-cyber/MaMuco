@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ma_muco/utilities.dart';
 
+import '../CalendarEvent.dart';
 import 'Calendar.dart';
 
 class CalendarWidget extends StatefulWidget {
@@ -30,8 +31,7 @@ class _CalendarWidget extends State<CalendarWidget> {
         if (widget.initialOffset == -1)
           widget.initialOffset = widget._calendarViewer.offset;
 
-        if (widget.initialOffset - widget._calendarViewer.offset >
-            0.75 * widget.initialOffset) {
+        if (widget.initialOffset - widget._calendarViewer.offset > 0.75 * widget.initialOffset) {
           widget._calendarViewer
               .jumpTo(widget.initialOffset + widget._calendarViewer.offset);
           widget.dateToShow = subtractOneMonth(widget.dateToShow);
@@ -65,19 +65,34 @@ class _CalendarWidget extends State<CalendarWidget> {
   @override
   Widget build(BuildContext context) {
     createMonths();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.calendar.getTitle() + " - " + language.getMonthly()),
       ),
       body: Scaffold(
-        body: PageView(
-          controller: widget._calendarViewer,
-          scrollDirection: Axis.vertical,
+        body: Stack(
           children: [
-            widget.prevMonth,
-            widget.actualMonth,
-            widget.nextMonth,
+            PageView(
+              controller: widget._calendarViewer,
+              scrollDirection: Axis.horizontal,
+              children: [
+                widget.prevMonth,
+                widget.actualMonth,
+                widget.nextMonth,
+              ],
+            ),
+            /* Affichage supperposé
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Color.fromARGB(200, 127, 127, 127),
+              ),
+            ),*/
           ],
         ),
       ),
@@ -117,22 +132,6 @@ class _CalendarWidget extends State<CalendarWidget> {
     );
   }
 
-  List<Widget> getDayListText() {
-    List<Widget> days = [];
-
-    for (int i = 1; i <= 7; i++) {
-      days.add(Expanded(
-        flex: 1,
-        child: Text(
-          language.getDay(i).substring(0, 3),
-          textAlign: TextAlign.center,
-        ),
-      ));
-    }
-
-    return days;
-  }
-
   Widget getAllMonthDays(int year, int month) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -162,8 +161,7 @@ class _CalendarWidget extends State<CalendarWidget> {
       for (int i = 0; i < 7; i++) {
         numberEventThisDay = 0;
         id = widget.calendar.getFirstEventIdFrom(date);
-        while (widget.calendar.isIndexInRange(id) &&
-            widget.calendar.getEvent(id).isTheSameDay(date)) {
+        while (widget.calendar.isIndexInRange(id) && widget.calendar.getEvent(id).isTheSameDay(date)) {
           numberEventThisDay++;
           id++;
         }
@@ -260,9 +258,18 @@ class _CalendarWidget extends State<CalendarWidget> {
     ));
   }
 
+  /* ATTENTION Problem with occurrent events */
   Widget getDailyEvent(int eventId) {
+    CalendarEvent event = widget.calendar.getEvent(eventId);
     return ListTile(
       contentPadding: EdgeInsets.all(5),
+      leading: Column(
+        children: [
+          Text(event.isStartTimeTheSameDay(widget.dateToShow) ? event.getStartHourString() : event.isStartTimeTheSameMonth(widget.dateToShow) ? language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " " + event.getStartHourString() : language.getMonth(event.getStartTime().month) + "/" + language.getDay(event.getStartTime().weekday).substring(0, 3) + " " + event.getStartTime().day.toString() + " "  + event.getStartHourString()),
+          Text("-"),
+          Text(event.isEndTimeTheSameDay(widget.dateToShow) ? event.getEndHourString() : event.isEndTimeTheSameMonth(widget.dateToShow) ? language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " " + event.getEndHourString() : language.getMonth(event.getEndTime().month) + "/" + language.getDay(event.getEndTime().weekday).substring(0, 3) + " " + event.getEndTime().day.toString() + " "  + event.getEndHourString()),
+        ],
+      ),
       title: Container(
         width: double.infinity,
         padding: EdgeInsets.all(5),
@@ -275,11 +282,11 @@ class _CalendarWidget extends State<CalendarWidget> {
           Container(
             width: double.infinity,
             child: Text(
-              widget.calendar.getEvent(eventId).title,
+              event.title,
               textAlign: TextAlign.left,
             ),
           ),
-          Text(widget.calendar.getEvent(eventId).infos),
+          Text(event.infos),
         ]),
       ),
     );

@@ -14,10 +14,10 @@ import 'WelcomePageClasses/MainInformation.dart';
 import 'AddSymptoms.dart';
 import 'AddEvents.dart';
 
-class mainPage extends StatelessWidget {
+class mainPage extends StatefulWidget {
 
-  MainInformation info = MainInformation();
-  MainInformation info2 = MainInformation();
+  MainInformation info;
+  MainInformation info2;
   Calendar meetingsCalendar;
   Calendar symptomsCalendar;
   Calendar drugsCalendar;
@@ -29,7 +29,7 @@ class mainPage extends StatelessWidget {
   mainPage() {
 
     /** Events used to test the draw */
-    list = <CalendarEvent>[];
+    /*list = <CalendarEvent>[];
     list.add(CalendarEvent());
     list.last.setTitle("Prendre médicament");
     list.last.setStartTime(DateTime(2021, 03, 29, 10, 43));
@@ -43,9 +43,18 @@ class mainPage extends StatelessWidget {
     list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
 
     info.setEvents(list);
-    info2.setEvents(list);
+    info2.setEvents(list);*/
+
+
 
     meetingsCalendar = MeetingsCalendar();
+    symptomsCalendar = SymptomsCalendar();
+    symptomsCalendar.readEvents();
+    drugsCalendar = DrugsCalendar();
+
+
+
+    /*meetingsCalendar = MeetingsCalendar();
     meetingsCalendar.addEvents(list);
 
 
@@ -62,13 +71,17 @@ class mainPage extends StatelessWidget {
     list.last.setInfos("Symptome 2");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test 3 Symptome");
-    list.last.setStartTime(DateTime(2021, 04, 03, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 03, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 12, 10, 43));
+    list.last.setEndTime(DateTime(2021, 04, 12, 12, 43));
     list.last.setInfos("Symptome 3");
+    list.last.setOccurrence(OccurrenceTime(day: 1)); // tous les jours
+    list.last.setRepetition(7*4); // pendant 28 jours
     symptomsCalendar = SymptomsCalendar();
     symptomsCalendar.addEvents(list);
 
 
+
+    list.clear();
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
     list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
@@ -76,24 +89,29 @@ class mainPage extends StatelessWidget {
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 13, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 14, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 14, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 15, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 15, 43));
+    list.last.setEndTime(DateTime(2021, 04, 02, 16, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
     list.add(CalendarEvent());
     list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
+    list.last.setStartTime(DateTime(2021, 04, 01, 7, 43));
+    list.last.setEndTime(DateTime(2021, 05, 02, 8, 43));
     list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
+    list.add(CalendarEvent());
+    list.last.setTitle("Evenement test Prendre médicament");
+    list.last.setStartTime(DateTime(2020, 12, 31, 7, 0));
+    list.last.setEndTime(DateTime(2021, 01, 01, 7, 0));
+    list.last.setInfos("Prendre 2 comprimés de ... ");
     drugsCalendar = DrugsCalendar();
     drugsCalendar.addEvents(list);
 
@@ -109,8 +127,115 @@ class mainPage extends StatelessWidget {
     list.last.setTitle("RDV Médical");
     list.last.setStartTime(DateTime(2021, 03, 31, 13, 00));
     list.last.setEndTime(DateTime(2021, 03, 31, 17, 45));
-    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
+    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");*/
     /** END */
+  }
+
+  @override
+  State<StatefulWidget> createState() => _mainPage();
+}
+
+class _mainPage extends State<mainPage> {
+
+
+  ListTile getMenu (BuildContext context, Text title, Image asset, MaterialPageRoute route ) {
+    return ListTile(
+      title: title,
+      leading: asset,
+        onTap: () {
+          Navigator.push(context, route);
+        },
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+
+    if (widget.info == null)
+    {
+      widget.info = MainInformation();
+      widget.meetingsCalendar.readEvents().then((value) {
+        List<CalendarEvent> list = <CalendarEvent>[];
+        int id = widget.meetingsCalendar.getFirstEventIdFrom(DateTime.now());
+        if (id != -1) {
+          list = <CalendarEvent>[];
+          list.add(widget.meetingsCalendar.getEvent(id));
+          if (widget.meetingsCalendar.getEvent(id + 1) != null)
+            list.add(widget.meetingsCalendar.getEvent(id + 1));
+
+          widget.info.setEvents(list);
+          setState(() { });
+        }
+      });
+    }
+    if (widget.info2 == null)
+    {
+      widget.info2 = MainInformation();
+      widget.drugsCalendar.readEvents().then((value) {
+        List<CalendarEvent> list = <CalendarEvent>[];
+        int id = widget.drugsCalendar.getFirstEventIdFrom(DateTime.now());
+        if (id != -1) {
+          list = <CalendarEvent>[];
+          list.add(widget.drugsCalendar.getEvent(id));
+          if (widget.drugsCalendar.getEvent(id + 1) != null)
+            list.add(widget.drugsCalendar.getEvent(id + 1));
+
+          widget.info2.setEvents(list);
+          setState(() { });
+        }
+      });
+      /*
+
+
+      list.clear();
+      id = drugsCalendar.getFirstEventIdFrom(DateTime.now());
+      if (id != -1) {
+        list = <CalendarEvent>[];
+        list.add(drugsCalendar.getEvent(id));
+        if (drugsCalendar.getEvent(id + 1) != null)
+          list.add(drugsCalendar.getEvent(id + 1));
+
+        info2.setEvents(list);
+      }*/
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(language.getAppName()),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            getMenu(context, Text(language.getWeightGraph()), Image(image: AssetImage("assets/graph.png")), MaterialPageRoute(builder: (context) => WeightGraph())),
+            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(symptomsCalendar))),
+            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(drugsCalendar))),
+            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(meetingsCalendar))),
+          ],
+        ),
+      ),
+      body: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+                children: [
+                  widget.info == null ? Container() : widget.info.getWidget(),
+                  widget.info2 == null ? Container() : widget.info2.getWidget(),
+                ]
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                getAddingBarEvents(context),
+                getAddingBarSymptoms(context),
+              ],
+            ),
+            getFastAccessBar(context),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget getFastAccessBar(BuildContext context) {
@@ -118,9 +243,9 @@ class mainPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), meetingsCalendar),
-          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), symptomsCalendar),
-          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), drugsCalendar),
+          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), widget.meetingsCalendar),
+          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), widget.symptomsCalendar),
+          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), widget.drugsCalendar),
         ],
       ),
     );
@@ -159,7 +284,7 @@ class mainPage extends StatelessWidget {
   Widget getAddingBarSymptoms (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms()
+        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms(widget.symptomsCalendar)
         ),
         );
       },
@@ -173,63 +298,12 @@ class mainPage extends StatelessWidget {
   Widget getAddingBarEvents (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents(widget.meetingsCalendar)));
       },
       style : ButtonStyle (
         backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
       ),
       child: Text(language.getAddEvents()),
-    );
-  }
-
-  ListTile getMenu (BuildContext context, Text title, Image asset, MaterialPageRoute route ) {
-    return ListTile(
-      title: title,
-      leading: asset,
-        onTap: () {
-          Navigator.push(context, route);
-        },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(language.getAppName()),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            getMenu(context, Text(language.getWeightGraph()), Image(image: AssetImage("assets/graph.png")), MaterialPageRoute(builder: (context) => WeightGraph())),
-            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(symptomsCalendar))),
-            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(drugsCalendar))),
-            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(meetingsCalendar))),
-          ],
-        ),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-                children: [
-                  info.getWidget(),
-                  info2.getWidget(),
-                ]
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                getAddingBarEvents(context),
-                getAddingBarSymptoms(context),
-              ],
-            ),
-            getFastAccessBar(context),
-          ],
-        ),
-      ),
     );
   }
 }

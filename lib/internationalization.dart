@@ -27,6 +27,23 @@ abstract class Internationalization {
 	String getSymptomCalendar ();
 	String getDrugsCalendar();
 	String getMeetingCalendar();
+
+	//Add Events
+	String getNameEvent();
+	String getDate();
+	String getDateEnd();
+	String getOccurrence();
+	String getDetails();
+	String getValidate();
+	String getPleaseEnterSomeText();
+	String getDateFormat();
+	String getOccurrenceFormat();
+	String getAskStartingTime();
+	String getAskEndingTime();
+	String getAt();
+	String getTo();
+
+	String getNoIncomingEvent();
 }
 
 class LanguageFr extends Internationalization {
@@ -115,6 +132,37 @@ class LanguageFr extends Internationalization {
 	String getDrugsCalendar() {return "Calendrier des médicaments";}
 	@override
 	String getMeetingCalendar() { return "Calendrier des rendez-vous";}
+
+	//Add Events
+	@override
+	String getNameEvent() {return "Evenement";}
+	@override
+	String getDate(){ return 'Date';}
+	@override
+	String getDateEnd() { return 'Date de Fin'; }
+	@override
+	String getOccurrence() { return 'Récurrence'; }
+	@override
+	String getDetails() {return 'Détails'; }
+	@override
+	String getValidate() {return 'Validation';}
+	@override
+	String getPleaseEnterSomeText() { return 'Veuillez entrer du texte...'; }
+	@override
+	String getDateFormat() { return 'Format de la date : AAAA:MM:JJ:HH:MM'; }
+	@override
+	String getOccurrenceFormat() { return 'Tous les : AAAA:MM:JJ T (T fois)'; }
+	@override
+	String getAskStartingTime() { return "Sélectionner l'heure de début : "; }
+	@override
+	String getAskEndingTime() { return "Sélectionner l'heure de fin : "; }
+	@override
+	String getAt() { return "à"; }
+	@override
+	String getTo() { return "au"; }
+
+	@override
+	String getNoIncomingEvent() { return "Pas d'événement à venir prochainement"; }
 }
 
 class LanguageEn extends Internationalization {
@@ -206,4 +254,34 @@ class LanguageEn extends Internationalization {
 	@override
 	String getMeetingCalendar() { return "Meeting calendar";}
 
+	//Add Events
+	@override
+	String getNameEvent() {return "Event";}
+	@override
+	String getDate(){ return 'Date';}
+	@override
+	String getDateEnd() { return 'End Date'; }
+	@override
+	String getOccurrence() { return 'Occurrence'; }
+	@override
+	String getDetails() {return 'Details'; }
+	@override
+	String getValidate() {return 'Validation';}
+	@override
+	String getPleaseEnterSomeText() { return 'Please enter some text...'; }
+	@override
+	String getDateFormat() { return 'Date format: YYYY:MM:DD:HH:MM'; }
+	@override
+	String getOccurrenceFormat() { return 'Each: YYYY:MM:DD T (T times)'; }
+	@override
+	String getAskStartingTime() { return "Select start time: "; }
+	@override
+	String getAskEndingTime() { return "Select end time: "; }
+	@override
+	String getAt() { return "at"; }
+	@override
+	String getTo() { return "to"; }
+
+	@override
+	String getNoIncomingEvent() { return "No incoming event"; }
 }
