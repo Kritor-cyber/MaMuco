@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ma_muco/AddLevelsSymptoms.dart';
 
+import 'Calendars/Calendar.dart';
 import 'utilities.dart';
 
 class AddSymptoms extends StatefulWidget {
+  Calendar calendar;
+  AddSymptoms (this.calendar);
   //Widget symptomSelection;
   bool selectingSymptom = false;
   AddLevelsSymptoms addLevelsSymptoms = null;
@@ -17,41 +20,6 @@ class AddSymptoms extends StatefulWidget {
 class _AddSymptoms extends State<AddSymptoms> {
   @override
   Widget build(BuildContext context) {
-   /* widget.symptomSelection = GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.selectingSymptom = false;
-        });
-      },
-      child: Container(
-        padding: EdgeInsets.all(25),
-        color: Colors.white,
-        child: Flex(
-          direction: Axis.horizontal,
-          children: [
-            Expanded(
-              child: Column(
-
-                children: [
-                  Text("Choississez le symptôme à ajouter :"),
-                  Container(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        getListZone(Text("Ajouter symptome 1"), Colors.red, Text("Sous titre"), Image(image: AssetImage("assets/lung.png"))),
-                        getListZone(Text("Ajouter symptome 2"), Colors.blue, Text("Sous titre"), Image(image: AssetImage("assets/medic.png"))),
-                        getListZone(Text("Ajouter symptome 3"), Colors.green, Text("Sous titre"), Image(image: AssetImage("assets/sick_boy.png"))),
-                        getListZone(Text("Ajouter un nouveau symptome"), Colors.yellow, Text("Sous titre"), Image(image: AssetImage("assets/heart.png"))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );*/
     return Scaffold(
       appBar: AppBar(
         title: Text(language.getAddSymptoms()),
@@ -68,10 +36,10 @@ class _AddSymptoms extends State<AddSymptoms> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  getSymptomButton("Respiration", () {return AddLevelsSymptomsRespiration();}),
-                  getSymptomButton("Digestion",(){return AddLevelsSymptomsDigestion();}),
-                  getSymptomButton("Humeur",() {return AddLevelsSymptomsMood();}),
-                  getSymptomButton("Autre",() {return AddLevelsSymptomsOther();}),
+                  getSymptomButton("Respiration", () {return AddLevelsSymptomsRespiration(widget.calendar);}),
+                  getSymptomButton("Digestion",(){return AddLevelsSymptomsDigestion(widget.calendar);}),
+                  getSymptomButton("Humeur",() {return AddLevelsSymptomsMood(widget.calendar);}),
+                  getSymptomButton("Autre",() {return AddLevelsSymptomsOther(widget.calendar);}),
                 ],
               ),
             ),
@@ -81,21 +49,6 @@ class _AddSymptoms extends State<AddSymptoms> {
       ),
     );
   }
-
-  /*ListTile getListZone(Text title, Color color, Text subtitle, Image asset) {
-    return ListTile(
-      title: title,
-      tileColor: color,
-      subtitle: subtitle,
-      leading: asset,
-      onTap: () {
-        setState(() {
-          print("symptome selectionne");
-          widget.selectingSymptom = false;
-        });
-      },
-    );
-  }*/
 
   TextButton getSymptomButton (String label,Function createAddLevelsSymptoms) {
     return TextButton.icon (

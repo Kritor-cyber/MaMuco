@@ -66,6 +66,7 @@ flutter:
     - assets/heart.png
     - assets/medic.png
     - assets/sick_boy.png
+    - assets/cross.png
 
   fonts:
     - family: fontIcons

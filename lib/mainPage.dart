@@ -173,7 +173,7 @@ class mainPage extends StatelessWidget {
   Widget getAddingBarSymptoms (BuildContext context) {
     return ElevatedButton (
       onPressed:() {
-        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms()
+        Navigator.push( context, MaterialPageRoute(builder: (context) => AddSymptoms(symptomsCalendar)
         ),
         );
       },
