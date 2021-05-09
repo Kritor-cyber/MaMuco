@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:ma_muco/Calendars/CalendarWidget.dart';
 import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
 import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
-import 'package:ma_muco/WeightGraph.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
@@ -206,10 +204,9 @@ class _mainPage extends State<mainPage> {
       drawer: Drawer(
         child: ListView(
           children: [
-            getMenu(context, Text(language.getWeightGraph()), Image(image: AssetImage("assets/graph.png")), MaterialPageRoute(builder: (context) => WeightGraph())),
-            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(symptomsCalendar))),
-            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(drugsCalendar))),
-            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(meetingsCalendar))),
+            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(widget.symptomsCalendar))),
+            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(widget.drugsCalendar))),
+            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(widget.meetingsCalendar))),
           ],
         ),
       ),
