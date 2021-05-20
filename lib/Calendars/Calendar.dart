@@ -29,16 +29,12 @@ abstract class Calendar extends CalendarDataSource {
       File file = await localFile;
 
       if (file.existsSync()) {
-        //final file = await localFile;
 
         // Read the file
         List<String> contents = file.readAsLinesSync();
-        //print("FICHIER : " + file.toString());
         for (String line in contents) {
           Map<String, dynamic> eventMap = jsonDecode(line);
           CalendarEvent event = CalendarEvent.fromJson(eventMap);
-          //print(event.getStartTime());
-          //print(event.getEndTime());
           addEvent(event);
         }
       }

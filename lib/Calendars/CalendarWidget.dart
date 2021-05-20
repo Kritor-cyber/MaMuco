@@ -15,7 +15,9 @@ class CalendarWidget extends StatefulWidget {
 
   double initialOffset = -1;
 
-  CalendarWidget(this.calendar);
+  Function(Calendar) AddEventFunction;
+
+  CalendarWidget(this.calendar, this.AddEventFunction);
   _CalendarWidget createState() => _CalendarWidget();
 }
 
@@ -81,20 +83,18 @@ class _CalendarWidget extends State<CalendarWidget> {
                 widget.nextMonth,
               ],
             ),
-            /* Affichage supperposé
-            Positioned(
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Color.fromARGB(200, 127, 127, 127),
-              ),
-            ),*/
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: "Add",
+        child: Icon(Icons.add),
+        onPressed: () {
+          print("Ajout d'un événement " + widget.calendar.toString());
+          Navigator.push(context, MaterialPageRoute(builder: (context) => widget.AddEventFunction(widget.calendar)));
+
+          print("finit");
+        },
       ),
     );
   }

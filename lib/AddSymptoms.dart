@@ -8,7 +8,6 @@ import 'utilities.dart';
 class AddSymptoms extends StatefulWidget {
   Calendar calendar;
   AddSymptoms (this.calendar);
-  //Widget symptomSelection;
   bool selectingSymptom = false;
   AddLevelsSymptoms addLevelsSymptoms = null;
 

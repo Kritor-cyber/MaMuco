@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 abstract class Internationalization {
 
 
@@ -13,6 +11,7 @@ abstract class Internationalization {
 	// Fast adding buttons
 	String getAddSymptoms();
 	String getAddEvents();
+	String getAddDrugs();
 
 	// Fast access buttons
 	String getCalendarButtonName();
@@ -22,8 +21,6 @@ abstract class Internationalization {
 	String getSymptomButtonToolTip();
 	String getDrugsButtonToolTip();
 
-	//WeightGraph
-	String getWeightGraph ();
 	String getSymptomCalendar ();
 	String getDrugsCalendar();
 	String getMeetingCalendar();
@@ -42,6 +39,10 @@ abstract class Internationalization {
 	String getAskEndingTime();
 	String getAt();
 	String getTo();
+
+	//Add Drugs
+	String getNameDrug();
+
 
 	String getNoIncomingEvent();
 }
@@ -105,8 +106,12 @@ class LanguageFr extends Internationalization {
 	String getMonthly() { return "MENSUEL"; }
 
 	// Fast adding buttons
+	@override
 	String getAddSymptoms () { return 'Ajouter Symptomes'; }
+	@override
 	String getAddEvents () { return 'Ajouter Evenement'; }
+	@override
+	String getAddDrugs () { return 'Ajouter Médicaments'; }
 
 
 	// Fast access buttons
@@ -123,9 +128,6 @@ class LanguageFr extends Internationalization {
 	@override
 	String getDrugsButtonToolTip() { return "Accès rapide au calendrier des médicaments"; }
 
-	//Weight Graph
-	@override
-	String getWeightGraph () {return "Graphique de poids";}
 	@override
 	String getSymptomCalendar () {return "Calendrier des Symptomes";}
 	@override
@@ -160,6 +162,9 @@ class LanguageFr extends Internationalization {
 	String getAt() { return "à"; }
 	@override
 	String getTo() { return "au"; }
+
+	//Add Drugs
+	String getNameDrug() {return "Médicament"; }
 
 	@override
 	String getNoIncomingEvent() { return "Pas d'événement à venir prochainement"; }
@@ -229,6 +234,8 @@ class LanguageEn extends Internationalization {
 	String getAddSymptoms () { return 'Add Symptoms'; }
 	@override
 	String getAddEvents () { return 'Add Events'; }
+	@override
+	String getAddDrugs () { return 'Add Drugs'; }
 
 	// Fast access buttons
 	@override
@@ -244,9 +251,6 @@ class LanguageEn extends Internationalization {
 	@override
 	String getDrugsButtonToolTip() { return "Fast access to drugs' calendar"; }
 
-	//Weight Graph
-	@override
-	String getWeightGraph () {return "Weight graph"; }
 	@override
 	String getSymptomCalendar () {return "Symptoms calendar";}
 	@override
@@ -281,6 +285,9 @@ class LanguageEn extends Internationalization {
 	String getAt() { return "at"; }
 	@override
 	String getTo() { return "to"; }
+
+	//Add Drugs
+	String getNameDrug() {return "Drug"; }
 
 	@override
 	String getNoIncomingEvent() { return "No incoming event"; }

@@ -1,11 +1,11 @@
 import 'package:ma_muco/CalendarEvent.dart';
-import 'package:ma_muco/Calendars/MeetingsCalendar.dart';
+import 'package:ma_muco/Calendars/DrugsCalendar.dart';
 import 'package:ma_muco/Calendars/OccurrenceTime.dart';
 
 import 'utilities.dart';
 import 'package:flutter/material.dart';
 
-class AddEvents extends StatefulWidget {
+class AddDrugs extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
   String _nameEvent;
   DateTime _date = DateTime.now();
@@ -13,19 +13,19 @@ class AddEvents extends StatefulWidget {
   OccurrenceTime _occurrence;
   int _repetition;
   String _details;
-  MeetingsCalendar _calendar;
+  DrugsCalendar _calendar;
 
-  AddEvents(this._calendar);
+  AddDrugs(this._calendar);
 
-  _AddEvents createState() => _AddEvents();
+  _AddDrugs createState() => _AddDrugs();
 }
 
-class _AddEvents extends State<AddEvents> {
+class _AddDrugs extends State<AddDrugs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(language.getAddEvents()),
+        title: Text(language.getAddDrugs()),
       ),
       body: Container(
         height: double.infinity,

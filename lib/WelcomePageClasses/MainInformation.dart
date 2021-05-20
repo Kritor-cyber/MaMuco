@@ -17,7 +17,6 @@ class MainInformation {
 
     if (events == null) {
       return Container(
-        //color: Colors.lightGreen,
         width: double.infinity,
         margin: EdgeInsets.all(5),
         padding: EdgeInsets.all(5),
@@ -45,7 +44,6 @@ class MainInformation {
 
     for (CalendarEvent event in events) {
       Container container = Container(
-        //color: Colors.lightGreen,
         margin: EdgeInsets.all(5),
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(

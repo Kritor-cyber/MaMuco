@@ -6,6 +6,7 @@ import 'package:ma_muco/Calendars/SymptomsCalendar.dart';
 import 'package:ma_muco/customIcons.dart';
 import 'package:ma_muco/utilities.dart';
 
+import 'AddDrugs.dart';
 import 'CalendarEvent.dart';
 import 'Calendars/Calendar.dart';
 import 'WelcomePageClasses/MainInformation.dart';
@@ -20,113 +21,12 @@ class mainPage extends StatefulWidget {
   Calendar symptomsCalendar;
   Calendar drugsCalendar;
 
-  /** Events used to test the draw*/
-  List<CalendarEvent> list;
-  /** END */
-
   mainPage() {
-
-    /** Events used to test the draw */
-    /*list = <CalendarEvent>[];
-    list.add(CalendarEvent());
-    list.last.setTitle("Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 03, 29, 10, 43));
-    list.last.setEndTime(DateTime(2021, 03, 30, 12, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-
-    list.add(CalendarEvent());
-    list.last.setTitle("RDV Médical");
-    list.last.setStartTime(DateTime(2021, 04, 01, 13, 00));
-    list.last.setEndTime(DateTime(2021, 04, 01, 17, 45));
-    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");
-
-    info.setEvents(list);
-    info2.setEvents(list);*/
-
-
 
     meetingsCalendar = MeetingsCalendar();
     symptomsCalendar = SymptomsCalendar();
     symptomsCalendar.readEvents();
     drugsCalendar = DrugsCalendar();
-
-
-
-    /*meetingsCalendar = MeetingsCalendar();
-    meetingsCalendar.addEvents(list);
-
-
-    list.clear();
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Symptome");
-    list.last.setStartTime(DateTime(2021, 03, 31, 10, 43));
-    list.last.setEndTime(DateTime(2021, 03, 31, 12, 43));
-    list.last.setInfos("Symptome 1");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test 2 Symptome");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 01, 12, 43));
-    list.last.setInfos("Symptome 2");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test 3 Symptome");
-    list.last.setStartTime(DateTime(2021, 04, 12, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 12, 12, 43));
-    list.last.setInfos("Symptome 3");
-    list.last.setOccurrence(OccurrenceTime(day: 1)); // tous les jours
-    list.last.setRepetition(7*4); // pendant 28 jours
-    symptomsCalendar = SymptomsCalendar();
-    symptomsCalendar.addEvents(list);
-
-
-
-    list.clear();
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 10, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 12, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 13, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 14, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 14, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 15, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 15, 43));
-    list.last.setEndTime(DateTime(2021, 04, 02, 16, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 04, 01, 7, 43));
-    list.last.setEndTime(DateTime(2021, 05, 02, 8, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repasPrendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-    list.add(CalendarEvent());
-    list.last.setTitle("Evenement test Prendre médicament");
-    list.last.setStartTime(DateTime(2020, 12, 31, 7, 0));
-    list.last.setEndTime(DateTime(2021, 01, 01, 7, 0));
-    list.last.setInfos("Prendre 2 comprimés de ... ");
-    drugsCalendar = DrugsCalendar();
-    drugsCalendar.addEvents(list);
-
-
-    list.clear();
-    list.add(CalendarEvent());
-    list.last.setTitle("Prendre médicament");
-    list.last.setStartTime(DateTime(2021, 03, 29, 10, 43));
-    list.last.setEndTime(DateTime(2021, 03, 30, 12, 43));
-    list.last.setInfos("Prendre 2 comprimés de ... avec un grand verre d'eau avant le repas");
-
-    list.add(CalendarEvent());
-    list.last.setTitle("RDV Médical");
-    list.last.setStartTime(DateTime(2021, 03, 31, 13, 00));
-    list.last.setEndTime(DateTime(2021, 03, 31, 17, 45));
-    list.last.setInfos("Rendez-vous avec le médecin généraliste pour bilan trimestriel");*/
-    /** END */
   }
 
   @override
@@ -136,10 +36,10 @@ class mainPage extends StatefulWidget {
 class _mainPage extends State<mainPage> {
 
 
-  ListTile getMenu (BuildContext context, Text title, Image asset, MaterialPageRoute route ) {
+  ListTile getMenu (BuildContext context, Text title, IconData asset, MaterialPageRoute route ) {
     return ListTile(
       title: title,
-      leading: asset,
+      leading: Icon(asset, color: Colors.green,),
         onTap: () {
           Navigator.push(context, route);
         },
@@ -182,19 +82,6 @@ class _mainPage extends State<mainPage> {
           setState(() { });
         }
       });
-      /*
-
-
-      list.clear();
-      id = drugsCalendar.getFirstEventIdFrom(DateTime.now());
-      if (id != -1) {
-        list = <CalendarEvent>[];
-        list.add(drugsCalendar.getEvent(id));
-        if (drugsCalendar.getEvent(id + 1) != null)
-          list.add(drugsCalendar.getEvent(id + 1));
-
-        info2.setEvents(list);
-      }*/
     }
 
     return Scaffold(
@@ -204,9 +91,9 @@ class _mainPage extends State<mainPage> {
       drawer: Drawer(
         child: ListView(
           children: [
-            getMenu(context, Text(language.getSymptomCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(widget.symptomsCalendar))),
-            getMenu(context, Text(language.getDrugsCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(widget.drugsCalendar))),
-            getMenu(context, Text(language.getMeetingCalendar()), Image(image: AssetImage("assets/calendar-x-fill.png")), MaterialPageRoute(builder: (context) => CalendarWidget(widget.meetingsCalendar))),
+            getMenu(context, Text(language.getSymptomCalendar()), customIcons.calendarXFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.symptomsCalendar, addSymptomsFunction))),
+            getMenu(context, Text(language.getDrugsCalendar()), customIcons.calendarCheckFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.drugsCalendar, addDrugsFunction))),
+            getMenu(context, Text(language.getMeetingCalendar()), customIcons.calendarFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.meetingsCalendar, addEventsFunction))),
           ],
         ),
       ),
@@ -235,20 +122,32 @@ class _mainPage extends State<mainPage> {
     );
   }
 
+  StatefulWidget addEventsFunction(Calendar calendar) {
+    return AddEvents(calendar);
+  }
+
+  StatefulWidget addSymptomsFunction(Calendar calendar) {
+    return AddSymptoms(calendar);
+  }
+
+  StatefulWidget addDrugsFunction(Calendar calendar) {
+    return AddDrugs(calendar);
+  }
+
   Widget getFastAccessBar(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), widget.meetingsCalendar),
-          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), widget.symptomsCalendar),
-          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), widget.drugsCalendar),
+          getAccessButton(context, customIcons.calendarFill, language.getCalendarButtonName(), language.getCalendarButtonToolTip(), widget.meetingsCalendar, addEventsFunction),
+          getAccessButton(context, customIcons.calendarXFill, language.getSymptomButtonName(), language.getSymptomButtonToolTip(), widget.symptomsCalendar, addSymptomsFunction),
+          getAccessButton(context, customIcons.calendarCheckFill, language.getDrugsButtonName(), language.getDrugsButtonToolTip(), widget.drugsCalendar, addDrugsFunction),
         ],
       ),
     );
   }
 
-  Widget getAccessButton(BuildContext context, IconData icon, String text, String tooltip, Calendar calendar) {
+  Widget getAccessButton(BuildContext context, IconData icon, String text, String tooltip, Calendar calendar, Function(Calendar) AddCreator) {
     return Expanded(
         child: Container(
           margin: EdgeInsets.only(bottom: 4),
@@ -256,7 +155,6 @@ class _mainPage extends State<mainPage> {
               children: [
                 IconButton(
                   icon: Icon(icon),
-                  // A lot of colors to test
                   color: Colors.red,
                   disabledColor: Colors.blueGrey,
                   focusColor: Colors.orange,
@@ -268,7 +166,7 @@ class _mainPage extends State<mainPage> {
                   splashRadius: 40,
 
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarWidget(calendar)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarWidget(calendar, AddCreator)));
                   },
                 ),
                 Text(text),
