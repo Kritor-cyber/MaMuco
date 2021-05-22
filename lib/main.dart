@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'internationalization.dart';
 
 import 'mainPage.dart';
@@ -24,8 +23,8 @@ void main() {
   runApp(MaterialApp(
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      SfGlobalLocalizations.delegate
+      GlobalWidgetsLocalizations.delegate/*,
+      SfGlobalLocalizations.delegate*/
     ],
     supportedLocales: [
       const Locale('en'),

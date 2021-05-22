@@ -12,6 +12,7 @@ import 'Calendars/Calendar.dart';
 import 'WelcomePageClasses/MainInformation.dart';
 import 'AddSymptoms.dart';
 import 'AddEvents.dart';
+import 'more_infos.dart';
 
 class mainPage extends StatefulWidget {
 
@@ -36,7 +37,7 @@ class mainPage extends StatefulWidget {
 class _mainPage extends State<mainPage> {
 
 
-  ListTile getMenu (BuildContext context, Text title, IconData asset, MaterialPageRoute route ) {
+  ListTile getMenu (BuildContext context, Text title, IconData asset, MaterialPageRoute route) {
     return ListTile(
       title: title,
       leading: Icon(asset, color: Colors.green,),
@@ -94,6 +95,7 @@ class _mainPage extends State<mainPage> {
             getMenu(context, Text(language.getSymptomCalendar()), customIcons.calendarXFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.symptomsCalendar, addSymptomsFunction))),
             getMenu(context, Text(language.getDrugsCalendar()), customIcons.calendarCheckFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.drugsCalendar, addDrugsFunction))),
             getMenu(context, Text(language.getMeetingCalendar()), customIcons.calendarFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.meetingsCalendar, addEventsFunction))),
+            getMenu(context, Text("Plus d'infos"), customIcons.calendarFill, MaterialPageRoute(builder: (context) => moreInfos())),
           ],
         ),
       ),
