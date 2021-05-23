@@ -90,6 +90,7 @@ abstract class AddLevelsSymptoms extends StatelessWidget {
               print(getSymptomTitle()+"/" + title.data);
               calendar.addEvent(newEvent);
               calendar.writeEvents();
+              Navigator.pop(context);
             }
             else {
               print("Evenement non ajouté aucune durée ajoutée");
@@ -252,6 +253,7 @@ class AddLevelsSymptomsOther extends AddLevelsSymptoms {
                     print(getSymptomTitle() + "/" + textEntree);
                     calendar.addEvent(newEvent);
                     calendar.writeEvents();
+                    Navigator.pop(context);
                   }
                 }
               },
