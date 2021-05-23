@@ -21,7 +21,7 @@ class moreInfos extends StatelessWidget {
                     : throw 'Could not launch https://www.vaincrelamuco.org/';
               },
               child: Image.network(
-                  'https://www.vaincrelamuco.org/sites/all/themes/custom/vlm/images/vlm_logo.png'),
+                  'https://www.vaincrelamuco.org/sites/all/themes/custom/vlm/images/vlm_logo.png', isAntiAlias: true, scale: 0.9, filterQuality: FilterQuality.high),
               style: ButtonStyle(
                 //padding: EdgeInsets.all(0),
                 padding:
@@ -37,7 +37,7 @@ class moreInfos extends StatelessWidget {
                     : throw 'Could not launch https://association-gregorylemarchal.org/';
               },
               child: Image.network(
-                  'https://association-gregorylemarchal.org/dist/images/front/logo_home2.png'),
+                  'https://association-gregorylemarchal.org/dist/images/front/logo_home2.png', isAntiAlias: true, filterQuality: FilterQuality.high),
               style: ButtonStyle(
                 //padding: EdgeInsets.all(0),
                 padding: MaterialStateProperty.resolveWith<EdgeInsets>((states) {
