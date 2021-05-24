@@ -12,6 +12,7 @@ import 'Calendars/Calendar.dart';
 import 'WelcomePageClasses/MainInformation.dart';
 import 'AddSymptoms.dart';
 import 'AddEvents.dart';
+import 'more_infos.dart';
 
 class mainPage extends StatefulWidget {
 
@@ -36,13 +37,25 @@ class mainPage extends StatefulWidget {
 class _mainPage extends State<mainPage> {
 
 
-  ListTile getMenu (BuildContext context, Text title, IconData asset, MaterialPageRoute route ) {
+  ListTile getMenu(BuildContext context, Text title, IconData asset, Calendar calender, Function(Calendar) AddCreator) {
     return ListTile(
       title: title,
       leading: Icon(asset, color: Colors.green,),
         onTap: () {
-          Navigator.push(context, route);
+          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarWidget(calender, AddCreator)));
         },
+    );
+  }
+
+  ListTile getMenuShort(BuildContext context, Text title, IconData asset, Function() creator) {
+    return ListTile(
+      title: title,
+      leading: Icon(asset, color: Colors.green,),
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => creator()));
+      },
     );
   }
   
@@ -91,9 +104,10 @@ class _mainPage extends State<mainPage> {
       drawer: Drawer(
         child: ListView(
           children: [
-            getMenu(context, Text(language.getSymptomCalendar()), customIcons.calendarXFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.symptomsCalendar, addSymptomsFunction))),
-            getMenu(context, Text(language.getDrugsCalendar()), customIcons.calendarCheckFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.drugsCalendar, addDrugsFunction))),
-            getMenu(context, Text(language.getMeetingCalendar()), customIcons.calendarFill, MaterialPageRoute(builder: (context) => CalendarWidget(widget.meetingsCalendar, addEventsFunction))),
+            getMenu(context, Text(language.getSymptomCalendar()), customIcons.calendarXFill, widget.symptomsCalendar, addSymptomsFunction),
+            getMenu(context, Text(language.getDrugsCalendar()), customIcons.calendarCheckFill, widget.drugsCalendar, addDrugsFunction),
+            getMenu(context, Text(language.getMeetingCalendar()), customIcons.calendarFill, widget.meetingsCalendar, addEventsFunction),
+            getMenuShort(context, Text("Plus d'infos"), customIcons.calendarFill, addMoreInfosFunction),
           ],
         ),
       ),
@@ -132,6 +146,10 @@ class _mainPage extends State<mainPage> {
 
   StatefulWidget addDrugsFunction(Calendar calendar) {
     return AddDrugs(calendar);
+  }
+
+  StatelessWidget addMoreInfosFunction() {
+    return moreInfos();
   }
 
   Widget getFastAccessBar(BuildContext context) {

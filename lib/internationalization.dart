@@ -1,4 +1,4 @@
-abstract class Internationalization {
+ abstract class Internationalization {
 
 
 	String getAppName();

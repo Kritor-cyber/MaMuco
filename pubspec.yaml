@@ -29,8 +29,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   path_provider: ^2.0.1
-  syncfusion_flutter_calendar: ^18.4.49
-  syncfusion_localizations: ^18.4.49
+  url_launcher: ^6.0.4  # Things to do to iOS : https://pub.dev/packages/url_launcher
 
 flutter_intl:
   enabled: true

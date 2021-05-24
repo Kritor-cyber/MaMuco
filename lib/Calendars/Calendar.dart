@@ -5,11 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../CalendarEvent.dart';
 
-abstract class Calendar extends CalendarDataSource {
+abstract class Calendar {
+
+  List<CalendarEvent> appointments;
 
   Calendar() {
     appointments = <CalendarEvent>[];
