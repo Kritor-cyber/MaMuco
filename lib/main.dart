@@ -34,7 +34,7 @@ void main() {
 
     title: language.getAppName(),
     theme: ThemeData(
-      primarySwatch: Colors.blue,
+      primaryColor: Colors.green,
     ),
     home: mainPage(),
   ));

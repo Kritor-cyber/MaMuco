@@ -98,7 +98,7 @@ class _mainPage extends State<mainPage> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.only(top: 20, right: 7, left: 7, bottom: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -155,7 +155,7 @@ class _mainPage extends State<mainPage> {
               children: [
                 IconButton(
                   icon: Icon(icon),
-                  color: Colors.red,
+                  color: Colors.green,
                   disabledColor: Colors.blueGrey,
                   focusColor: Colors.orange,
                   highlightColor: Colors.pink,
@@ -184,7 +184,7 @@ class _mainPage extends State<mainPage> {
         );
       },
       style : ButtonStyle (
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green[800]),
       ),
       child: Text (language.getAddSymptoms()),
     );
@@ -196,7 +196,7 @@ class _mainPage extends State<mainPage> {
         Navigator.push(context, MaterialPageRoute(builder: (context) => AddEvents(widget.meetingsCalendar)));
       },
       style : ButtonStyle (
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.green[800]),
       ),
       child: Text(language.getAddEvents()),
     );

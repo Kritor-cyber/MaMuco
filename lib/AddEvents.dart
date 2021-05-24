@@ -65,7 +65,7 @@ class _AddEvents extends State<AddEvents> {
                         },
                         child: Text(
                           language.getValidate(),
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.lightGreen),
                         ),
                       ),
                     ],

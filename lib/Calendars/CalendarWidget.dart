@@ -87,6 +87,7 @@ class _CalendarWidget extends State<CalendarWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         tooltip: "Add",
         child: Icon(Icons.add),
         onPressed: () {
@@ -204,9 +205,9 @@ class _CalendarWidget extends State<CalendarWidget> {
 
     Color backgroundColor = Color.fromARGB(0, 0, 0, 0);
     if (isSameDay(date, widget.dateToShow)) {
-      backgroundColor = Colors.lightBlue;
+      backgroundColor = Colors.lightGreen;
     } else if (isSameDay(date, DateTime.now()))
-      backgroundColor = Colors.lightBlue[100];
+      backgroundColor = Colors.lightGreen[100];
 
     /// This Expanded is to fill the width
     return Expanded(
@@ -276,7 +277,7 @@ class _CalendarWidget extends State<CalendarWidget> {
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(width: 3, color: Colors.lightBlue[100]),
+          border: Border.all(width: 3, color: Colors.lightGreen[100]),
         ),
         child: Column(children: [
           Container(

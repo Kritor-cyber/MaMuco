@@ -13,7 +13,7 @@ class MeetingsCalendar extends Calendar {
 
   @override
   Color getColor(int index) {
-    return Colors.blue;
+    return Colors.green;
   }
 
   Future<File> get localFile async {

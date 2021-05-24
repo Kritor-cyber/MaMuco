@@ -65,7 +65,7 @@ class _AddDrugs extends State<AddDrugs> {
                         },
                         child: Text(
                           language.getValidate(),
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.lightGreen),
                         ),
                       ),
                     ],

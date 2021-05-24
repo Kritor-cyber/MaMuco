@@ -61,8 +61,8 @@ class _AddSymptoms extends State<AddSymptoms> {
       label: Text(label,style: TextStyle(fontSize: 30) ),
       style: TextButton.styleFrom(
         minimumSize: Size(300, 0),
-        primary: Colors.blue,
-        side: BorderSide(color: Colors.blue, width: 2),
+        primary: Colors.green,
+        side: BorderSide(color: Colors.green, width: 2),
         padding: EdgeInsets.only(top:10, bottom: 10),
     ),
     );

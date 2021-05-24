@@ -140,7 +140,7 @@ class AddLevelsSymptomsRespiration extends AddLevelsSymptoms {
   }
 
   List<Color> getListColors() {
-    return [Colors.red, Colors.blue, Colors.green, Colors.yellow];
+    return [Colors.lightGreen[500], Colors.lightGreen[600], Colors.lightGreen[700], Colors.lightGreen[800]];
   }
 
   List<String> getListSubtitles() {
@@ -170,7 +170,7 @@ class AddLevelsSymptomsDigestion extends AddLevelsSymptoms {
   }
 
   List<Color> getListColors() {
-    return [Colors.blue, Colors.green, Colors.red, Colors.yellow];
+    return [Colors.lightGreen[500], Colors.lightGreen[600], Colors.lightGreen[700], Colors.lightGreen[800]];
   }
 
   List<String> getListSubtitles() {
@@ -200,7 +200,7 @@ class AddLevelsSymptomsMood extends AddLevelsSymptoms {
   }
 
   List<Color> getListColors() {
-    return [Colors.yellow, Colors.blue, Colors.green, Colors.red];
+    return [Colors.lightGreen[500], Colors.lightGreen[600], Colors.lightGreen[700], Colors.lightGreen[800]];
   }
 
   List<String> getListSubtitles() {

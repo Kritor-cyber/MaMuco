@@ -13,7 +13,7 @@ class SymptomsCalendar extends Calendar {
 
   @override
   Color getColor(int index) {
-    return Colors.red;
+    return Colors.green;
   }
 
   Future<File> get localFile async {
