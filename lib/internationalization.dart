@@ -39,12 +39,37 @@
 	String getAskEndingTime();
 	String getAt();
 	String getTo();
+	String getEventPeriod();
+	String getMoreInfos();
+
+	// Add Symptoms
+	String getBreathing();
+	String getDigestion();
+	String getMood();
+	String getOther();
 
 	//Add Drugs
 	String getNameDrug();
 
 
 	String getNoIncomingEvent();
+
+	// Add Level Symptoms
+  String getGood();
+	String getMedium();
+	String getBad();
+
+	String getSubtitle1();
+	String getSubtitle2();
+	String getSubtitle3();
+	String getSubtitle4();
+
+	String getHappy();
+	String getTired();
+	String getSad();
+	String getStressed();
+
+  String getChooseSymptomAdd();
 }
 
 class LanguageFr extends Internationalization {
@@ -162,12 +187,56 @@ class LanguageFr extends Internationalization {
 	String getAt() { return "à"; }
 	@override
 	String getTo() { return "au"; }
+	@override
+	String getEventPeriod() { return "Période de l'évenement"; }
+	@override
+	String getMoreInfos() { return "Plus d'infos"; }
+
+	// Add Symptoms
+	@override
+	String getBreathing() { return "Respiration"; }
+	@override
+	String getDigestion() { return "Digestion"; }
+	@override
+	String getMood() { return "Humeur"; }
+	@override
+	String getOther() { return "Autre"; }
 
 	//Add Drugs
 	String getNameDrug() {return "Médicament"; }
 
 	@override
 	String getNoIncomingEvent() { return "Pas d'événement à venir prochainement"; }
+
+
+	// Add Level Symptoms
+	@override
+	String getGood() { return "Bonne"; }
+	@override
+	String getMedium() { return "Moyenne"; }
+	@override
+	String getBad() { return "Mauvaise"; }
+
+	@override
+	String getSubtitle1() { return "sous-titre 1"; }
+	@override
+	String getSubtitle2() { return "sous-titre 2"; }
+	@override
+	String getSubtitle3() { return "sous-titre 3"; }
+	@override
+	String getSubtitle4() { return "sous-titre 4"; }
+
+	@override
+	String getHappy() { return "Heureux"; }
+	@override
+	String getTired() { return "Fatigué"; }
+	@override
+	String getSad() { return "Triste"; }
+	@override
+	String getStressed() { return "Stressé"; }
+
+	@override
+	String getChooseSymptomAdd() { return "Choississez le symptôme à ajouter :"; }
 }
 
 class LanguageEn extends Internationalization {
@@ -285,10 +354,54 @@ class LanguageEn extends Internationalization {
 	String getAt() { return "at"; }
 	@override
 	String getTo() { return "to"; }
+	@override
+	String getEventPeriod() { return "Event Period"; }
+	@override
+	String getMoreInfos() { return "More information"; }
+
+	// Add Symptoms
+	@override
+	String getBreathing() { return "Breathing"; }
+	@override
+	String getDigestion() { return "Digestion"; }
+	@override
+	String getMood() { return "Mood"; }
+	@override
+	String getOther() { return "Other"; }
 
 	//Add Drugs
 	String getNameDrug() {return "Drug"; }
 
 	@override
 	String getNoIncomingEvent() { return "No incoming event"; }
+
+
+	// Add Level Symptoms
+	@override
+	getGood() { return "Good"; }
+	@override
+	getMedium() { return "Medium"; }
+	@override
+	getBad() { return "Bad"; }
+
+	@override
+	getSubtitle1() { return "subtitle 1"; }
+	@override
+	getSubtitle2() { return "subtitle 2"; }
+	@override
+	getSubtitle3() { return "subtitle 3"; }
+	@override
+	getSubtitle4() { return "subtitle 4"; }
+
+	@override
+	getHappy() { return "Happy"; }
+	@override
+	getTired() { return "Tired"; }
+	@override
+	getSad() { return "Sad"; }
+	@override
+	getStressed() { return "Stressed"; }
+
+	@override
+	String getChooseSymptomAdd() { return "Choose the symptom you want to add:"; }
 }

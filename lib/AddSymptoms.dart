@@ -35,10 +35,10 @@ class _AddSymptoms extends State<AddSymptoms> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  getSymptomButton("Respiration", () {return AddLevelsSymptomsRespiration(widget.calendar);}),
-                  getSymptomButton("Digestion",(){return AddLevelsSymptomsDigestion(widget.calendar);}),
-                  getSymptomButton("Humeur",() {return AddLevelsSymptomsMood(widget.calendar);}),
-                  getSymptomButton("Autre",() {return AddLevelsSymptomsOther(widget.calendar);}),
+                  getSymptomButton(language.getBreathing(), () {return AddLevelsSymptomsRespiration(widget.calendar);}),
+                  getSymptomButton(language.getDigestion(), () {return AddLevelsSymptomsDigestion(widget.calendar);}),
+                  getSymptomButton(language.getMood(), () {return AddLevelsSymptomsMood(widget.calendar);}),
+                  getSymptomButton(language.getOther(), () {return AddLevelsSymptomsOther(widget.calendar);}),
                 ],
               ),
             ),

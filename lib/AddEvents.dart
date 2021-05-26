@@ -61,6 +61,7 @@ class _AddEvents extends State<AddEvents> {
                             widget._calendar.addEvent(newEvent);
                             print("ADD EVENT TO CALENDAR : " + widget._nameEvent + " / " + widget._date.toString() + " / " + widget._details + " / " + widget._occurrence.toString() + " / " + widget._repetition.toString());
                             widget._calendar.writeEvents();
+                            Navigator.pop(context);
                           }
                         },
                         child: Text(
@@ -101,7 +102,7 @@ class _AddEvents extends State<AddEvents> {
         child: TextFormField(
         readOnly: true,
         controller: controller,
-        decoration: InputDecoration(labelText: "Période de l'évenement", border: OutlineInputBorder()),
+        decoration: InputDecoration(labelText: language.getEventPeriod(), border: OutlineInputBorder()),
         onTap: () async {
           var newDateRange = await showDateRangePicker(context: context, firstDate: DateTime(1900), lastDate: DateTime(2100));
           if (newDateRange != null)
