@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ma_muco/CalendarEvent.dart';
 import 'package:ma_muco/Calendars/Calendar.dart';
+import 'package:ma_muco/utilities.dart';
 
 abstract class AddLevelsSymptoms extends StatelessWidget {
   Calendar calendar;
@@ -31,7 +32,7 @@ abstract class AddLevelsSymptoms extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: Text("Choississez le symptôme à ajouter :"),
+                  child: Text(language.getChooseSymptomAdd()),
                   margin: EdgeInsets.only(bottom: 10),
                 ),
                 Container(
@@ -130,13 +131,13 @@ abstract class AddLevelsSymptoms extends StatelessWidget {
 
 class AddLevelsSymptomsRespiration extends AddLevelsSymptoms {
   AddLevelsSymptomsRespiration(Calendar calendar) : super(calendar);
-  String getSymptomTitle () {return ("Respiration");}
+  String getSymptomTitle () {return (language.getBreathing());}
   List<String> getListLevels() {
     return [
-      ("Bonne"),
-      ("Moyenne"),
-      ("Mauvaise"),
-      ("Details"),
+      (language.getGood()),
+      (language.getMedium()),
+      (language.getBad()),
+      (language.getDetails()),
     ];
   }
 
@@ -145,7 +146,10 @@ class AddLevelsSymptomsRespiration extends AddLevelsSymptoms {
   }
 
   List<String> getListSubtitles() {
-    return ["sous-titre1", "sous-titre2", "sous-titre3", "sous-titre4"];
+    return [language.getSubtitle1(),
+            language.getSubtitle2(),
+            language.getSubtitle3(),
+            language.getSubtitle4()];
   }
 
   List<String> getListImages() {
@@ -160,13 +164,13 @@ class AddLevelsSymptomsRespiration extends AddLevelsSymptoms {
 
 class AddLevelsSymptomsDigestion extends AddLevelsSymptoms {
   AddLevelsSymptomsDigestion(Calendar calendar) : super(calendar);
-  String getSymptomTitle () {return ("Digestion");}
+  String getSymptomTitle () {return (language.getDigestion());}
   List<String> getListLevels() {
     return [
-      ("Bonne"),
-      ("Moyenne"),
-      ("Mauvaise"),
-      ("Details"),
+      (language.getGood()),
+      (language.getMedium()),
+      (language.getBad()),
+      (language.getDetails()),
     ];
   }
 
@@ -175,7 +179,10 @@ class AddLevelsSymptomsDigestion extends AddLevelsSymptoms {
   }
 
   List<String> getListSubtitles() {
-    return ["sous-titre1", "sous-titre2", "sous-titre3", "sous-titre4"];
+    return [language.getSubtitle1(),
+            language.getSubtitle2(),
+            language.getSubtitle3(),
+            language.getSubtitle4()];
   }
 
   List<String> getListImages() {
@@ -190,13 +197,13 @@ class AddLevelsSymptomsDigestion extends AddLevelsSymptoms {
 
 class AddLevelsSymptomsMood extends AddLevelsSymptoms {
   AddLevelsSymptomsMood(Calendar calendar) : super(calendar);
-  String getSymptomTitle () {return ("Humeur");}
+  String getSymptomTitle () {return (language.getMood());}
   List<String> getListLevels() {
     return [
-      ("Heureux"),
-      ("Fatigué"),
-      ("Triste"),
-      ("Stressé"),
+      language.getHappy(),
+      language.getTired(),
+      language.getSad(),
+      language.getStressed(),
     ];
   }
 
@@ -205,7 +212,10 @@ class AddLevelsSymptomsMood extends AddLevelsSymptoms {
   }
 
   List<String> getListSubtitles() {
-    return ["sous-titre1", "sous-titre2", "sous-titre3", "sous-titre4"];
+    return [language.getSubtitle1(),
+            language.getSubtitle2(),
+            language.getSubtitle3(),
+            language.getSubtitle4()];
   }
 
   List<String> getListImages() {

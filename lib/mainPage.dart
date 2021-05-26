@@ -107,7 +107,7 @@ class _mainPage extends State<mainPage> {
             getMenu(context, Text(language.getSymptomCalendar()), customIcons.calendarXFill, widget.symptomsCalendar, addSymptomsFunction),
             getMenu(context, Text(language.getDrugsCalendar()), customIcons.calendarCheckFill, widget.drugsCalendar, addDrugsFunction),
             getMenu(context, Text(language.getMeetingCalendar()), customIcons.calendarFill, widget.meetingsCalendar, addEventsFunction),
-            getMenuShort(context, Text("Plus d'infos"), customIcons.calendarFill, addMoreInfosFunction),
+            getMenuShort(context, Text(language.getMoreInfos()), customIcons.calendarFill, addMoreInfosFunction),
           ],
         ),
       ),
