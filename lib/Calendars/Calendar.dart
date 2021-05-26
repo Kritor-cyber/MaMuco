@@ -125,14 +125,14 @@ abstract class Calendar {
         {
           tmp = DateTime(date.year - event.getOccurrence().year * i, date.month - event.getOccurrence().month * i, date.day - event.getOccurrence().day * i);
           if (tmp.year < event.getEndTime().year) {
-            if (tmp.isBefore(appointments[id+1].getStartTime()))
+            if (appointments.asMap().length < id+1 && tmp.isBefore(appointments[id+1].getStartTime()))
               return id;
             else
               i = event.getRepetition();  /// Stoping for loop because it became useless to continue
           }
           else if (tmp.year == event.getEndTime().year){
             if (tmp.month < event.getEndTime().month) {
-              if (tmp.isBefore(appointments[id+1].getStartTime()))
+              if (appointments.asMap().length < id+1 && tmp.isBefore(appointments[id+1].getStartTime()))
                 return id;
               else
                 i = event.getRepetition();  /// Stoping for loop because it became useless to continue
